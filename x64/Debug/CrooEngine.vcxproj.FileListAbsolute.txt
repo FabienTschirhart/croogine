@@ -1,0 +1,2 @@
+E:\Dev\CrooEngine\x64\Debug\CrooEngine.exe
+E:\Dev\CrooEngine\x64\Debug\CrooEngine.pdb
