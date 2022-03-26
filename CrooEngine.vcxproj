@@ -155,7 +155,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Croogine_Cleanup.cpp" />
     <ClCompile Include="Croogine_Core.cpp" />
+    <ClCompile Include="Croogine_Init.cpp" />
+    <ClCompile Include="Croogine_Loop.cpp" />
+    <ClCompile Include="Croogine_RenderPipeline.cpp" />
+    <ClCompile Include="Croogine_window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

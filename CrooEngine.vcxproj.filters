@@ -21,6 +21,21 @@
     <ClCompile Include="Croogine_Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Croogine_window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Croogine_Init.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Croogine_Loop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Croogine_Cleanup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Croogine_RenderPipeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Croogine_Core.h">

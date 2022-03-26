@@ -17,8 +17,16 @@
 #include <optional>
 #include <set>
 
+#ifdef NDEBUG
+const bool enableValidationLayers = false;
+#else
+const bool enableValidationLayers = true;
+#endif
+
 struct QueueFamilyIndices;
 struct SwapChainSupportDetails;
+
+extern const int MAX_FRAMES_IN_FLIGHT;
 
 class Croogine {
 public:
@@ -56,6 +64,13 @@ private:
     uint32_t currentFrame = 0;
 
     void initWindow();
+
+    void initGL();
+
+    void initOpenGL();
+
+    void initDirectX();
+
     void initVulkan();
 
     void mainLoop();
@@ -91,6 +106,9 @@ private:
     void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex);
 
     void createSyncObjects();
+
+    void renderPipeline();
+
     void drawFrame();
 
     VkShaderModule createShaderModule(const std::vector<char>& code);
