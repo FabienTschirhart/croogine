@@ -39,6 +39,9 @@
     <ClCompile Include="Croogine_VKInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Croogine_VKDebugMessenger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Croogine_Core.h">

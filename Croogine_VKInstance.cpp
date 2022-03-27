@@ -34,6 +34,7 @@ void Croogine::createInstance() {
     VkInstanceCreateInfo instanceCInfo{};
     VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo{};
 
+    //validationlayer are used for debugging purposes only.
     if (enableValidationLayers && !checkValidationLayerSupport()) {
         throw std::runtime_error("validation layers requested, but not available!");
     }

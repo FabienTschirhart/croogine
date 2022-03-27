@@ -3,6 +3,7 @@
   Croogine_Init.cpp
   Croogine_Loop.cpp
   Croogine_RenderPipeline.cpp
+  Croogine_VKDebugMessenger.cpp
   Croogine_VKInstance.cpp
   Croogine_window.cpp
   main.cpp

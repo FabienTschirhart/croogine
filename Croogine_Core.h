@@ -30,9 +30,13 @@ public:
     void run();
 private:
 
+    //Croogine_window
     GLFWwindow* window; //Application window
 
+    //Croogine_VKInstance
     VkInstance instance; //Vulkan instance
+
+    //Croogine_VKDebugMessenger
     VkDebugUtilsMessengerEXT debugMessenger;
     VkSurfaceKHR surface;
 
