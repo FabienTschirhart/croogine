@@ -39,6 +39,7 @@ struct SwapChainSupportDetails {
 class Croogine {
 public:
     void run();
+
 private:
 
     //Croogine_window
@@ -74,7 +75,10 @@ private:
     std::vector<VkSemaphore> imageAvailableSemaphores;
     std::vector<VkSemaphore> renderFinishedSemaphores;
     std::vector<VkFence> inFlightFences;
+
     uint32_t currentFrame = 0;
+
+    bool framebufferResized = false;
 
     void initWindow();
 
@@ -147,6 +151,8 @@ private:
     std::vector<const char*> getRequiredExtensions();
 
     bool checkValidationLayerSupport();
+
+    static void framebufferResizeCallback(GLFWwindow* , int, int);
 
 };
 
