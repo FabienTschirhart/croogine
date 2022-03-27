@@ -161,6 +161,7 @@
     <ClCompile Include="Croogine_Loop.cpp" />
     <ClCompile Include="Croogine_RenderPipeline.cpp" />
     <ClCompile Include="Croogine_VKDebugMessenger.cpp" />
+    <ClCompile Include="Croogine_VKImageViews.cpp" />
     <ClCompile Include="Croogine_VKInstance.cpp" />
     <ClCompile Include="Croogine_VKLogicalDevice.cpp" />
     <ClCompile Include="Croogine_VKPhysicalDevice.cpp" />
