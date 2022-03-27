@@ -1,8 +1,6 @@
 #include "Croogine_Core.h"
 #include "Croogine_constants.h"
 
-
-
 void Croogine::createLogicalDevice() {
     QueueFamilyIndices indices = findQueueFamilies(physicalDevice);
 

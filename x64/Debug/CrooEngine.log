@@ -1,2 +1,6 @@
 ﻿  Croogine_Init.cpp
+  Croogine_RenderPipeline.cpp
+  Croogine_VKLogicalDevice.cpp
+  Croogine_VKSwapChain.cpp
+  Generating Code...
   CrooEngine.vcxproj -> D:\Devs\Projects\croolab-engine\x64\Debug\CrooEngine.exe

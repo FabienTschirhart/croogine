@@ -12,16 +12,15 @@ void Croogine::drawFrame() {
     uint32_t imageIndex;
     VkResult result = vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &imageIndex);
 
-    if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
-        framebufferResized = false;
+    if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         recreateSwapChain();
+        return;
     }
-    else if (result != VK_SUCCESS) {
+    else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
         throw std::runtime_error("failed to acquire swap chain image!");
     }
 
     vkResetFences(device, 1, &inFlightFences[currentFrame]);
-    currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 
     vkResetCommandBuffer(commandBuffers[currentFrame], /*VkCommandBufferResetFlagBits*/ 0);
     recordCommandBuffer(commandBuffers[currentFrame], imageIndex);
@@ -58,7 +57,15 @@ void Croogine::drawFrame() {
 
     presentInfo.pImageIndices = &imageIndex;
 
-    vkQueuePresentKHR(presentQueue, &presentInfo);
+    result = vkQueuePresentKHR(presentQueue, &presentInfo);
+
+    if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || framebufferResized) {
+        framebufferResized = false;
+        recreateSwapChain();
+    }
+    else if (result != VK_SUCCESS) {
+        throw std::runtime_error("failed to present swap chain image!");
+    }
 
     currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 }
