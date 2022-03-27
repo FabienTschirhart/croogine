@@ -162,6 +162,7 @@
     <ClCompile Include="Croogine_RenderPipeline.cpp" />
     <ClCompile Include="Croogine_VKDebugMessenger.cpp" />
     <ClCompile Include="Croogine_VKInstance.cpp" />
+    <ClCompile Include="Croogine_VKPhysicalDevice.cpp" />
     <ClCompile Include="Croogine_window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

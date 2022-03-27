@@ -34,7 +34,7 @@ void Croogine::createInstance() {
     VkInstanceCreateInfo instanceCInfo{};
     VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo{};
 
-    //validationlayer are used for debugging purposes only.
+    //validationlayer are used for debugging purposes.
     if (enableValidationLayers && !checkValidationLayerSupport()) {
         throw std::runtime_error("validation layers requested, but not available!");
     }
@@ -79,4 +79,29 @@ std::vector<const char*> Croogine::getRequiredExtensions() {
     vkEnumerateInstanceExtensionProperties(nullptr, &glfwExtensionCount, nullptr);
 
     return extensions;
+}
+
+bool Croogine::checkValidationLayerSupport() {
+    uint32_t layerCount;
+    vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
+
+    std::vector<VkLayerProperties> availableLayers(layerCount);
+    vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
+
+    for (const char* layerName : validationLayers) {
+        bool layerFound = false;
+
+        for (const auto& layerProperties : availableLayers) {
+            if (strcmp(layerName, layerProperties.layerName) == 0) {
+                layerFound = true;
+                break;
+            }
+        }
+
+        if (!layerFound) {
+            return false;
+        }
+    }
+
+    return true;
 }
