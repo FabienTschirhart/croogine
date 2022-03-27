@@ -1,2 +1,10 @@
-﻿  Croogine_VKInstance.cpp
+﻿  Croogine_Cleanup.cpp
+  Croogine_Core.cpp
+  Croogine_Init.cpp
+  Croogine_Loop.cpp
+  Croogine_RenderPipeline.cpp
+  Croogine_VKInstance.cpp
+  Croogine_window.cpp
+  main.cpp
+  Generating Code...
   CrooEngine.vcxproj -> D:\Devs\Projects\croolab-engine\x64\Debug\CrooEngine.exe
