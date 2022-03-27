@@ -8,7 +8,6 @@ void Croogine::renderPipeline()
 
 void Croogine::drawFrame() {
     vkWaitForFences(device, 1, &inFlightFences[currentFrame], VK_TRUE, UINT64_MAX);
-    vkResetFences(device, 1, &inFlightFences[currentFrame]);
 
     uint32_t imageIndex;
     VkResult result = vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &imageIndex);
@@ -21,6 +20,7 @@ void Croogine::drawFrame() {
         throw std::runtime_error("failed to acquire swap chain image!");
     }
 
+    vkResetFences(device, 1, &inFlightFences[currentFrame]);
     currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 
     vkResetCommandBuffer(commandBuffers[currentFrame], /*VkCommandBufferResetFlagBits*/ 0);
