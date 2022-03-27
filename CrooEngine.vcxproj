@@ -160,7 +160,10 @@
     <ClCompile Include="Croogine_Init.cpp" />
     <ClCompile Include="Croogine_Loop.cpp" />
     <ClCompile Include="Croogine_RenderPipeline.cpp" />
+    <ClCompile Include="Croogine_VKCommandBuffer.cpp" />
+    <ClCompile Include="Croogine_VKCommandPool.cpp" />
     <ClCompile Include="Croogine_VKDebugMessenger.cpp" />
+    <ClCompile Include="Croogine_VKFrameBuffer.cpp" />
     <ClCompile Include="Croogine_VKImageViews.cpp" />
     <ClCompile Include="Croogine_VKInstance.cpp" />
     <ClCompile Include="Croogine_VKLogicalDevice.cpp" />
@@ -168,6 +171,7 @@
     <ClCompile Include="Croogine_VKRenderPass.cpp" />
     <ClCompile Include="Croogine_VKSurface.cpp" />
     <ClCompile Include="Croogine_VKSwapChain.cpp" />
+    <ClCompile Include="Croogine_VKSyncObjects.cpp" />
     <ClCompile Include="Croogine_window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
