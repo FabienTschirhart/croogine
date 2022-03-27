@@ -57,3 +57,22 @@ void Croogine::initVulkan() {
 
     createSyncObjects();
 }
+
+void Croogine::recreateSwapChain()
+{
+    vkDeviceWaitIdle(device);
+    
+    cleanupSwapChain();
+
+    createSwapChain();
+
+    createImageViews();
+
+    createRenderPass();
+
+    createRenderPipeline();
+
+    createFramebuffers();
+
+    createCommandBuffers();
+}

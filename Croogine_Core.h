@@ -86,9 +86,13 @@ private:
 
     void initVulkan();
 
+    void recreateSwapChain();
+
     void mainLoop();
 
     void cleanup();
+
+    void cleanupSwapChain();
 
     void createInstance();
 

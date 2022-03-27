@@ -1,7 +1,4 @@
-﻿  Croogine_Init.cpp
-  Croogine_VKCommandBuffer.cpp
-  Croogine_VKCommandPool.cpp
-  Croogine_VKSyncObjects.cpp
+﻿  Croogine_Cleanup.cpp
+  Croogine_RenderPipeline.cpp
   Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   CrooEngine.vcxproj -> D:\Devs\Projects\croolab-engine\x64\Debug\CrooEngine.exe
