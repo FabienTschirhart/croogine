@@ -18,6 +18,9 @@ const int VERSION_PATCH = 0;
 const std::string ENGINE_NAME = "Croogine 3D";
 const std::string ENGINE_VERSION = "V0.0.1";
 
+const std::string vertexshader_file = "shaders/vert.spv";
+const std::string fragmentshader_file = "shaders/frag.spv";
+
 const uint32_t WIDTH = 1024;
 const uint32_t HEIGHT = 768;
 
