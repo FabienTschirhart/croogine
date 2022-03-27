@@ -160,11 +160,14 @@
     <ClCompile Include="Croogine_Init.cpp" />
     <ClCompile Include="Croogine_Loop.cpp" />
     <ClCompile Include="Croogine_RenderPipeline.cpp" />
+    <ClCompile Include="Croogine_VKInstance.cpp" />
     <ClCompile Include="Croogine_window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Croogine_constants.h" />
     <ClInclude Include="Croogine_Core.h" />
+    <ClInclude Include="Croogine_Enums.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

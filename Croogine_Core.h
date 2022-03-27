@@ -17,6 +17,7 @@
 #include <optional>
 #include <set>
 
+
 #ifdef NDEBUG
 const bool enableValidationLayers = false;
 #else
@@ -26,15 +27,16 @@ const bool enableValidationLayers = true;
 struct QueueFamilyIndices;
 struct SwapChainSupportDetails;
 
-extern const int MAX_FRAMES_IN_FLIGHT;
+
 
 class Croogine {
 public:
     void run();
 private:
-    GLFWwindow* window;
 
-    VkInstance instance;
+    GLFWwindow* window; //Application window
+
+    VkInstance instance; //Vulkan instance
     VkDebugUtilsMessengerEXT debugMessenger;
     VkSurfaceKHR surface;
 
