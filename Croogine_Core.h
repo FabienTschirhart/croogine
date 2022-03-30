@@ -1,6 +1,6 @@
 #pragma once
-#ifndef Croogine_HEADER
-#define Croogine_HEADER
+#ifndef CROOGINE_CORE
+#define CROOGINE_CORE
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
@@ -70,6 +70,10 @@ private:
     VkPipeline graphicsPipeline;
 
     VkCommandPool commandPool;
+
+    VkBuffer vertexBuffer;   
+    VkDeviceMemory vertexBufferMemory;
+
     std::vector<VkCommandBuffer> commandBuffers;
 
     std::vector<VkSemaphore> imageAvailableSemaphores;
@@ -121,6 +125,8 @@ private:
     void createFramebuffers();
 
     void createCommandPool();
+
+    void createVertexBuffer();
 
     void createCommandBuffers();
 

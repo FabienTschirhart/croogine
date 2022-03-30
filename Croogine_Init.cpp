@@ -53,6 +53,8 @@ void Croogine::initVulkan() {
 
     createCommandPool();
 
+    createVertexBuffer();
+
     createCommandBuffers();
 
     createSyncObjects();

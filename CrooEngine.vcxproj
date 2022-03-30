@@ -172,6 +172,7 @@
     <ClCompile Include="Croogine_VKSurface.cpp" />
     <ClCompile Include="Croogine_VKSwapChain.cpp" />
     <ClCompile Include="Croogine_VKSyncObjects.cpp" />
+    <ClCompile Include="Croogine_VKVertexBuffers.cpp" />
     <ClCompile Include="Croogine_window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -179,6 +180,7 @@
     <ClInclude Include="Croogine_constants.h" />
     <ClInclude Include="Croogine_Core.h" />
     <ClInclude Include="Croogine_Enums.h" />
+    <ClInclude Include="Croogine_VKVertexBuffers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

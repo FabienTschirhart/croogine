@@ -3,6 +3,7 @@
 #define CROOGINE_CONSTANTS
 
 #include "Croogine_Enums.h"
+#include "Croogine_VKVertexBuffers.h"
 
 #ifdef NDEBUG
 const bool enableValidationLayers = false;
@@ -35,5 +36,10 @@ const std::vector<const char*> deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME
 };
 
+const std::vector<Vertex> vertices = {
+{{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+{{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
+{{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
+};
 
 #endif
