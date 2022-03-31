@@ -128,6 +128,8 @@ private:
 
     void createVertexBuffer();
 
+    void copyBuffer(VkBuffer, VkBuffer, VkDeviceSize);
+
     void createCommandBuffers();
 
     void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex);
