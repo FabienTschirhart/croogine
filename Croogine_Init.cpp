@@ -47,6 +47,8 @@ void Croogine::initVulkan() {
 
     createRenderPass();
 
+    createDescriptorSetLayout();
+
     createRenderPipeline();
 
     createFramebuffers();
@@ -54,6 +56,10 @@ void Croogine::initVulkan() {
     createCommandPool();
 
     createVertexBuffer();
+
+    createIndexBuffer();
+
+    createUniformBuffers();
 
     createCommandBuffers();
 

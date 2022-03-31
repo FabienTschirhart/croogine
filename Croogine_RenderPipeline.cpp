@@ -1,6 +1,6 @@
 #include "Croogine_Core.h"
 #include "Croogine_constants.h"
-#include "Croogine_VKVertexBuffers.h"
+#include "Croogine_VKVertex.h"
 
 void Croogine::renderPipeline()
 {
@@ -25,6 +25,9 @@ void Croogine::drawFrame() {
 
     vkResetCommandBuffer(commandBuffers[currentFrame], /*VkCommandBufferResetFlagBits*/ 0);
     recordCommandBuffer(commandBuffers[currentFrame], imageIndex);
+
+    updateUniformBuffer(imageIndex);
+
 
     VkSubmitInfo submitInfo{};
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;

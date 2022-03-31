@@ -160,18 +160,23 @@
     <ClCompile Include="Croogine_Init.cpp" />
     <ClCompile Include="Croogine_Loop.cpp" />
     <ClCompile Include="Croogine_RenderPipeline.cpp" />
+    <ClCompile Include="Croogine_VKBufferHandling.cpp" />
     <ClCompile Include="Croogine_VKCommandBuffer.cpp" />
     <ClCompile Include="Croogine_VKCommandPool.cpp" />
     <ClCompile Include="Croogine_VKDebugMessenger.cpp" />
+    <ClCompile Include="Croogine_VKDescriptorSetLayout.cpp" />
     <ClCompile Include="Croogine_VKFrameBuffer.cpp" />
     <ClCompile Include="Croogine_VKImageViews.cpp" />
+    <ClCompile Include="Croogine_VKIndexBuffer.cpp" />
     <ClCompile Include="Croogine_VKInstance.cpp" />
     <ClCompile Include="Croogine_VKLogicalDevice.cpp" />
+    <ClCompile Include="Croogine_VKMemory.cpp" />
     <ClCompile Include="Croogine_VKPhysicalDevice.cpp" />
     <ClCompile Include="Croogine_VKRenderPass.cpp" />
     <ClCompile Include="Croogine_VKSurface.cpp" />
     <ClCompile Include="Croogine_VKSwapChain.cpp" />
     <ClCompile Include="Croogine_VKSyncObjects.cpp" />
+    <ClCompile Include="Croogine_VKUniformBuffer.cpp" />
     <ClCompile Include="Croogine_VKVertexBuffers.cpp" />
     <ClCompile Include="Croogine_window.cpp" />
     <ClCompile Include="main.cpp" />
@@ -180,7 +185,9 @@
     <ClInclude Include="Croogine_constants.h" />
     <ClInclude Include="Croogine_Core.h" />
     <ClInclude Include="Croogine_Enums.h" />
-    <ClInclude Include="Croogine_VKVertexBuffers.h" />
+    <ClInclude Include="Croogine_VKBufferHandling.h" />
+    <ClInclude Include="Croogine_VKMemory.h" />
+    <ClInclude Include="Croogine_VKVertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

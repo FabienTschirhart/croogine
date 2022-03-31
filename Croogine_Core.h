@@ -4,6 +4,9 @@
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <chrono>
 
 #include <iostream>
 #include <fstream>
@@ -16,8 +19,6 @@
 #include <limits>
 #include <optional>
 #include <set>
-
-
 
 struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;
@@ -34,7 +35,11 @@ struct SwapChainSupportDetails {
     std::vector<VkPresentModeKHR> presentModes;
 };
 
-
+struct UniformBufferObject {
+    glm::mat4 model;
+    glm::mat4 view;
+    glm::mat4 proj;
+};
 
 class Croogine {
 public:
@@ -66,6 +71,7 @@ private:
     std::vector<VkFramebuffer> swapChainFramebuffers;
 
     VkRenderPass renderPass;
+    VkDescriptorSetLayout descriptorSetLayout;
     VkPipelineLayout pipelineLayout;
     VkPipeline graphicsPipeline;
 
@@ -73,6 +79,12 @@ private:
 
     VkBuffer vertexBuffer;   
     VkDeviceMemory vertexBufferMemory;
+
+    VkBuffer indexBuffer;
+    VkDeviceMemory indexBufferMemory;
+
+    std::vector<VkBuffer> uniformBuffers;
+    std::vector<VkDeviceMemory> uniformBuffersMemory;
 
     std::vector<VkCommandBuffer> commandBuffers;
 
@@ -120,6 +132,8 @@ private:
 
     void createRenderPass();
 
+    void createDescriptorSetLayout();
+
     void createRenderPipeline();
 
     void createFramebuffers();
@@ -128,7 +142,9 @@ private:
 
     void createVertexBuffer();
 
-    void copyBuffer(VkBuffer, VkBuffer, VkDeviceSize);
+    void createIndexBuffer();
+
+    void createUniformBuffers();
 
     void createCommandBuffers();
 
@@ -139,6 +155,8 @@ private:
     void renderPipeline();
 
     void drawFrame();
+
+    void updateUniformBuffer(uint32_t);
 
     VkShaderModule createShaderModule(const std::vector<char>& code);
 
