@@ -1,7 +1,8 @@
-﻿  Croogine_Cleanup.cpp
+﻿  Croogine_Init.cpp
+  Croogine_VKBufferHandling.cpp
+  Croogine_VKCommandBuffer.cpp
   Croogine_VKIndexBuffer.cpp
-  Croogine_VKInstance.cpp
-  Croogine_VKSwapChain.cpp
-  main.cpp
+  Croogine_VKUniformBuffer.cpp
+  Croogine_VKVertexBuffers.cpp
   Generating Code...
   CrooEngine.vcxproj -> D:\Devs\Projects\croolab-engine\x64\Debug\CrooEngine.exe
