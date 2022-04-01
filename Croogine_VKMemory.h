@@ -6,4 +6,5 @@
 
 uint32_t findMemoryType(uint32_t, VkMemoryPropertyFlags, VkPhysicalDevice);
 
+
 #endif
