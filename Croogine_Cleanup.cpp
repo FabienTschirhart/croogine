@@ -17,6 +17,8 @@ void Croogine::cleanup() {
         vkFreeMemory(device, uniformBuffersMemory[i], nullptr);
     }
 
+    vkDestroyDescriptorPool(device, descriptorPool, nullptr);
+
     vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
 
     vkDestroyBuffer(device, indexBuffer, nullptr);
@@ -33,7 +35,6 @@ void Croogine::cleanup() {
 
     vkDestroyCommandPool(device, commandPool, nullptr);
 
-
     vkDestroyDevice(device, nullptr);
 
     if (enableValidationLayers) {
@@ -41,10 +42,11 @@ void Croogine::cleanup() {
     }
 
     vkDestroySurfaceKHR(instance, surface, nullptr);
-    vkDestroyInstance(instance, nullptr); //destroy instance created in Croogine::createInstance();
+    vkDestroyInstance(instance, nullptr);
 
-    glfwDestroyWindow(window); //destroy both window and its context
-    glfwTerminate(); //terminate the Graphic Library FrameWork
+    glfwDestroyWindow(window);
+
+    glfwTerminate();
 }
 
 void Croogine::cleanupSwapChain() {

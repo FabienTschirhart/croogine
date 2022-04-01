@@ -32,37 +32,23 @@ void Croogine::initDirectX() {
 void Croogine::initVulkan() {
 
     createInstance();
-
     setupDebugMessenger();
-
     createSurface();
-
     pickPhysicalDevice();
-
     createLogicalDevice();
-
     createSwapChain();
-
     createImageViews();
-
     createRenderPass();
-
     createDescriptorSetLayout();
-
     createRenderPipeline();
-
     createFramebuffers();
-
     createCommandPool();
-
     createVertexBuffer();
-
     createIndexBuffer();
-
     createUniformBuffers();
-
+    createDescriptorPool();
+    createDescriptorSets();
     createCommandBuffers();
-
     createSyncObjects();
 }
 

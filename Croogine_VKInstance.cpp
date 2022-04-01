@@ -41,7 +41,7 @@ void Croogine::createInstance() {
 
     generateAppInfo(appInfo);
 
-    enumerateExtensions();
+    //enumerateExtensions();
 
     instanceCInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     instanceCInfo.pApplicationInfo = &appInfo;

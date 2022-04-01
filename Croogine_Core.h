@@ -83,6 +83,9 @@ private:
     VkBuffer indexBuffer;
     VkDeviceMemory indexBufferMemory;
 
+    VkDescriptorPool descriptorPool;
+    std::vector<VkDescriptorSet> descriptorSets;
+
     std::vector<VkBuffer> uniformBuffers;
     std::vector<VkDeviceMemory> uniformBuffersMemory;
 
@@ -145,6 +148,10 @@ private:
     void createIndexBuffer();
 
     void createUniformBuffers();
+
+    void createDescriptorPool();
+
+    void createDescriptorSets();
 
     void createCommandBuffers();
 
