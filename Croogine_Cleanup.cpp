@@ -22,6 +22,7 @@ void Croogine::cleanup() {
 
     vkDestroyDescriptorPool(device, descriptorPool, nullptr);
 
+
     vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
 
     vkDestroyBuffer(device, indexBuffer, nullptr);
