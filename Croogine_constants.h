@@ -21,6 +21,7 @@ const std::string ENGINE_VERSION = "V0.0.1";
 
 const std::string vertexshader_file = "shaders/vert.spv";
 const std::string fragmentshader_file = "shaders/frag.spv";
+const std::string texture_file = "textures / Woman_Punk.jpg";
 
 const uint32_t WIDTH = 1024;
 const uint32_t HEIGHT = 768;

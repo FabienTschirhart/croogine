@@ -23,6 +23,7 @@
   Croogine_VKSurface.cpp
   Croogine_VKSwapChain.cpp
   Croogine_VKSyncObjects.cpp
+  Croogine_VKTextureImage.cpp
   Croogine_VKUniformBuffer.cpp
   Croogine_VKVertexBuffers.cpp
   Croogine_window.cpp
