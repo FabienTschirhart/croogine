@@ -43,6 +43,9 @@ void Croogine::initVulkan() {
     createRenderPipeline();
     createFramebuffers();
     createCommandPool();
+    createTextureImage();
+    createTextureImageView();
+    createTextureSampler();
     createVertexBuffer();
     createIndexBuffer();
     createUniformBuffers();

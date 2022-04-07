@@ -91,6 +91,9 @@ private:
     VkImage textureImage;
     VkDeviceMemory textureImageMemory;
 
+    VkImageView textureImageView;
+    VkSampler textureSampler;
+
     std::vector<VkBuffer> uniformBuffers;
     std::vector<VkDeviceMemory> uniformBuffersMemory;
 
@@ -152,7 +155,13 @@ private:
 
     void createTextureImage();
 
+    void createTextureImageView();
+
+    void createTextureSampler();
+
     void createImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
+
+    VkImageView createImageView(VkImage image, VkFormat format);
 
     void createVertexBuffer();
 

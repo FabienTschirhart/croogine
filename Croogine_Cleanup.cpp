@@ -12,6 +12,9 @@ void Croogine::cleanup() {
 
     cleanupSwapChain();
 
+    vkDestroySampler(device, textureSampler, nullptr);
+    vkDestroyImageView(device, textureImageView, nullptr);
+
     vkDestroyImage(device, textureImage, nullptr);
     vkFreeMemory(device, textureImageMemory, nullptr);
 
@@ -21,7 +24,6 @@ void Croogine::cleanup() {
     }
 
     vkDestroyDescriptorPool(device, descriptorPool, nullptr);
-
 
     vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
 
