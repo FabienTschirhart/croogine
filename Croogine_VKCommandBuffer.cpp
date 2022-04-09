@@ -13,6 +13,8 @@ void Croogine::createCommandBuffers() {
     allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     allocInfo.commandBufferCount = (uint32_t)commandBuffers.size();
 
+
+
     if (vkAllocateCommandBuffers(device, &allocInfo, commandBuffers.data()) != VK_SUCCESS) {
         throw std::runtime_error("failed to allocate command buffers!");
     }
@@ -37,6 +39,13 @@ void Croogine::recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t image
     VkClearValue clearColor = { {{0.0f, 0.0f, 0.0f, 1.0f}} };
     renderPassInfo.clearValueCount = 1;
     renderPassInfo.pClearValues = &clearColor;
+
+    std::array<VkClearValue, 2> clearValues{};
+    clearValues[0].color = { {0.0f, 0.0f, 0.0f, 1.0f} };
+    clearValues[1].depthStencil = { 1.0f, 0 };
+
+    renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
+    renderPassInfo.pClearValues = clearValues.data();
 
     vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
