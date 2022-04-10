@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "Croogine_VKVertex.h"
 #include <chrono>
 
 #include <iostream>
@@ -109,6 +110,9 @@ private:
 
     uint32_t currentFrame = 0;
 
+    std::vector<Vertex> vertices;
+    std::vector<uint32_t> indices;
+
     bool framebufferResized = false;
 
     void initWindow();
@@ -190,6 +194,8 @@ private:
     void drawFrame();
 
     void updateUniformBuffer(uint32_t);
+
+    void loadModel();
 
     VkShaderModule createShaderModule(const std::vector<char>& code);
 

@@ -23,8 +23,11 @@ const std::string vertexshader_file = "shaders/vert.spv";
 const std::string fragmentshader_file = "shaders/frag.spv";
 const std::string texture_file = "textures/Woman_Punk.jpg";
 
-const uint32_t WIDTH = 1024;
-const uint32_t HEIGHT = 768;
+const std::string MODEL_PATH = "models/cornell_box_Custom.obj";
+const std::string TEXTURE_PATH = "textures/Cornell_Box_Material_Lightmap.png";
+
+const uint32_t WIDTH = 1920;
+const uint32_t HEIGHT = 1080;
 
 const GL_API SELECTED_GL_API = Vulkan;
 const int MAX_FRAMES_IN_FLIGHT = 2;
@@ -37,20 +40,5 @@ const std::vector<const char*> deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME
 };
 
-const std::vector<Vertex> vertices = {
-    {{-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
-    {{0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}},
-    {{0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
-    {{-0.5f, 0.5f, 0.0f}, {1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}},
 
-    {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
-    {{0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}},
-    {{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
-    {{-0.5f, 0.5f, -0.5f}, {1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}
-};
-
-const std::vector<uint16_t> indices = {
-    0, 1, 2, 2, 3, 0,
-    4, 5, 6, 6, 7, 4
-};
 #endif

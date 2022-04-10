@@ -102,6 +102,9 @@
     <ClCompile Include="Croogine_VKDepth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Croogine_ModelLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Croogine_constants.h">

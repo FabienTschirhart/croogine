@@ -36,42 +36,55 @@ void Croogine::initVulkan() {
     createSurface();
     pickPhysicalDevice();
     createLogicalDevice();
+
     createSwapChain();
     createImageViews();
     createRenderPass();
+
     createDescriptorSetLayout();
+
     createRenderPipeline();
+
     createCommandPool();
+
     createDepthResources();
     createFramebuffers();
+
     createTextureImage();
     createTextureImageView();
     createTextureSampler();
+    loadModel();
     createVertexBuffer();
     createIndexBuffer();
+
     createUniformBuffers();
     createDescriptorPool();
     createDescriptorSets();
     createCommandBuffers();
+
     createSyncObjects();
 }
 
 void Croogine::recreateSwapChain()
 {
     int width = 0, height = 0;
-    glfwGetFramebufferSize(window, &width, &height);
     while (width == 0 || height == 0) {
         glfwGetFramebufferSize(window, &width, &height);
         glfwWaitEvents();
     }
 
     vkDeviceWaitIdle(device);
-    
+
     cleanupSwapChain();
 
     createSwapChain();
     createImageViews();
     createRenderPass();
     createRenderPipeline();
+    createDepthResources();
     createFramebuffers();
+    createUniformBuffers();
+    createDescriptorPool();
+    createDescriptorSets();
+    createCommandBuffers();
 }
