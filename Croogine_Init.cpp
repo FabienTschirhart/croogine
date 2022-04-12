@@ -43,7 +43,7 @@ void Croogine::initVulkan() {
 
     createDescriptorSetLayout();
 
-    createRenderPipeline();
+    createRenderPipeline(); //per material
 
     createCommandPool();
 
@@ -53,16 +53,16 @@ void Croogine::initVulkan() {
     createTextureImage();
     createTextureImageView();
     createTextureSampler();
-    loadModel();
-    createVertexBuffer();
-    createIndexBuffer();
+    loadModel();        // per model
+    createVertexBuffer(); // per model
+    createIndexBuffer(); // per model ??
 
-    createUniformBuffers();
-    createDescriptorPool();
-    createDescriptorSets();
-    createCommandBuffers();
+    createUniformBuffers(); // per model
+    createDescriptorPool(); // per model ??
+    createDescriptorSets(); // per model ??
+    createCommandBuffers();// per model
 
-    createSyncObjects();
+    createSyncObjects(); // per model ??
 }
 
 void Croogine::recreateSwapChain()
