@@ -175,6 +175,7 @@
     <ClCompile Include="Croogine_VKInstance.cpp" />
     <ClCompile Include="Croogine_VKLogicalDevice.cpp" />
     <ClCompile Include="Croogine_VKMemory.cpp" />
+    <ClCompile Include="Croogine_VKMipmaps.cpp" />
     <ClCompile Include="Croogine_VKPhysicalDevice.cpp" />
     <ClCompile Include="Croogine_VKRenderPass.cpp" />
     <ClCompile Include="Croogine_VKSurface.cpp" />
