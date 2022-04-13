@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Croogine_VKVertex.h"
+#include "Croogine_Camera.h"
 #include <chrono>
 
 #include <iostream>
