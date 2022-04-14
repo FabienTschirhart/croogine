@@ -44,6 +44,11 @@ struct UniformBufferObject {
     glm::mat4 proj;
 };
 
+struct SimplePushConstantData {
+    glm::vec2 offset;
+    glm::vec3 color;
+};
+
 class Croogine {
 public:
     void run();
