@@ -161,7 +161,9 @@
     <ClCompile Include="Croogine_Loop.cpp" />
     <ClCompile Include="Croogine_ModelLoader.cpp" />
     <ClCompile Include="Croogine_RenderPipeline.cpp" />
+    <ClCompile Include="Croogine_VKAntialiasing.cpp" />
     <ClCompile Include="Croogine_VKBufferHandling.cpp" />
+    <ClCompile Include="Croogine_VKColor.cpp" />
     <ClCompile Include="Croogine_VKCommandBuffer.cpp" />
     <ClCompile Include="Croogine_VKCommandPool.cpp" />
     <ClCompile Include="Croogine_VKDebugMessenger.cpp" />

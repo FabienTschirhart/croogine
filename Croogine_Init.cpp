@@ -48,6 +48,7 @@ void Croogine::initVulkan() {
     createCommandPool();
 
     createDepthResources();
+    createColorResources();
     createFramebuffers();
 
     createTextureImage();
@@ -81,6 +82,7 @@ void Croogine::recreateSwapChain()
     createImageViews();
     createRenderPass();
     createRenderPipeline();
+    createColorResources();
     createDepthResources();
     createFramebuffers();
     createUniformBuffers();
