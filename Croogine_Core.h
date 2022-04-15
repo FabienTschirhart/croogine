@@ -211,7 +211,7 @@ private:
 
     void updateUniformBuffer(uint32_t);
 
-    void loadModel();
+    void loadModel(std::string, std::vector<Vertex>, std::vector<uint32_t>);
 
     VkSampleCountFlagBits getMaxUsableSampleCount();
 

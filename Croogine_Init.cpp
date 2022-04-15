@@ -54,14 +54,14 @@ void Croogine::initVulkan() {
     createTextureImage();
     createTextureImageView();
     createTextureSampler();
-    loadModel();        // per model
-    createVertexBuffer(); // per model
-    createIndexBuffer(); // per model ??
+        loadModel(MODEL_PATH, vertices, indices);        // per model
+        createVertexBuffer(); // per model
+        createIndexBuffer(); // per model 
 
-    createUniformBuffers(); // per model
-    createDescriptorPool(); // per model ??
-    createDescriptorSets(); // per model ??
-    createCommandBuffers();// per model
+        createUniformBuffers(); // per model
+        createDescriptorPool(); // per model 
+        createDescriptorSets(); // per model 
+        createCommandBuffers();// per model
 
     createSyncObjects(); // per model ??
 }

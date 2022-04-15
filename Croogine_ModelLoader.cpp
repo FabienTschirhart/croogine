@@ -5,14 +5,14 @@
 #include "Croogine_constants.h"
 #include <unordered_map>
 
-void Croogine::loadModel()
+void Croogine::loadModel(std::string model_path, std::vector<Vertex> vertices, std::vector<uint32_t> indices)
 {
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
     std::string warn, err;
 
-    if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, MODEL_PATH.c_str())) {
+    if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, model_path.c_str())) {
         throw std::runtime_error(warn + err);
     }
 
