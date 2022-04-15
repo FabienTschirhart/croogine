@@ -12,18 +12,18 @@ void Croogine::cleanup() {
 
     cleanupSwapChain();
 
-    vkDestroySampler(device, textureSampler, nullptr);
-    vkDestroyImageView(device, textureImageView, nullptr);
-
-    vkDestroyImage(device, textureImage, nullptr);
-    vkFreeMemory(device, textureImageMemory, nullptr);
-
     for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
         vkDestroyBuffer(device, uniformBuffers[i], nullptr);
         vkFreeMemory(device, uniformBuffersMemory[i], nullptr);
     }
 
     vkDestroyDescriptorPool(device, descriptorPool, nullptr);
+
+    vkDestroySampler(device, textureSampler, nullptr);
+    vkDestroyImageView(device, textureImageView, nullptr);
+
+    vkDestroyImage(device, textureImage, nullptr);
+    vkFreeMemory(device, textureImageMemory, nullptr);
 
     vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
 
@@ -56,13 +56,14 @@ void Croogine::cleanup() {
 }
 
 void Croogine::cleanupSwapChain() {
-
     vkDestroyImageView(device, depthImageView, nullptr);
     vkDestroyImage(device, depthImage, nullptr);
+    vkFreeMemory(device, depthImageMemory, nullptr);
+
     vkDestroyImageView(device, colorImageView, nullptr);
     vkDestroyImage(device, colorImage, nullptr);
-    vkFreeMemory(device, depthImageMemory, nullptr);
-    
+    vkFreeMemory(device, colorImageMemory, nullptr);
+
     for (auto framebuffer : swapChainFramebuffers) {
         vkDestroyFramebuffer(device, framebuffer, nullptr);
     }

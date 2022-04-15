@@ -5,7 +5,7 @@
 #include "Croogine_constants.h"
 #include <unordered_map>
 
-void Croogine::loadModel(std::string model_path, std::vector<Vertex> vertices, std::vector<uint32_t> indices)
+void Croogine::loadModel(std::string model_path, std::vector<Vertex> lvertices, std::vector<uint32_t> lindices)
 {
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
