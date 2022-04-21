@@ -24,7 +24,7 @@ const std::string fragmentshader_file = "shaders/frag.spv";
 const std::string texture_file = "textures/Woman_Punk.jpg";
 
 const std::string MODEL_PATH = "models/cornell_box_Custom.obj";
-const std::string TEXTURE_PATH = "textures/Cornell_Box_Lightmap_512.png";
+const std::string TEXTURE_PATH = "textures/Cornell_Box_Lightmap_2048.png";
 //"textures/Cornell_Box_Flat.png"
 //"textures/Cornell_Box_BaseColor.png"
 //"textures/Cornell_Box_Lightmap_512_DirectLighting.png"
