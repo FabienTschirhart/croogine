@@ -2,8 +2,6 @@
 #ifndef CROOGINE_CORE
 #define CROOGINE_CORE
 
-
-
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
