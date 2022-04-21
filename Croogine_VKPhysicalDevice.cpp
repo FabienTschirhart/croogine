@@ -16,6 +16,7 @@ void Croogine::pickPhysicalDevice() {
         if (isDeviceSuitable(device)) {
             physicalDevice = device;
             msaaSamples = getMaxUsableSampleCount();
+            printf("msaaSample : %d\n", msaaSamples);
             break;
         }
     }
