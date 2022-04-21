@@ -43,7 +43,7 @@ void Croogine::initVulkan() {
 
     createDescriptorSetLayout();
 
-    createRenderPipeline(); //per material
+        createRenderPipeline(); //per material
 
     createCommandPool();
 
@@ -54,6 +54,7 @@ void Croogine::initVulkan() {
     createTextureImage(TEXTURE_PATH);
     createTextureImageView();
     createTextureSampler();
+
         loadModel(MODEL_PATH, vertices, indices);        // per model
         createVertexBuffer(); // per model
         createIndexBuffer(); // per model 
