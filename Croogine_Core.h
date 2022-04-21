@@ -175,7 +175,7 @@ private:
 
     void transitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels);
 
-    void createTextureImage();
+    void createTextureImage(std::string);
 
     void createTextureImageView();
 

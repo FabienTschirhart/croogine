@@ -51,7 +51,7 @@ void Croogine::initVulkan() {
     createColorResources();
     createFramebuffers();
 
-    createTextureImage();
+    createTextureImage(TEXTURE_PATH);
     createTextureImageView();
     createTextureSampler();
         loadModel(MODEL_PATH, vertices, indices);        // per model
