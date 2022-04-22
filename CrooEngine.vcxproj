@@ -161,6 +161,7 @@
     <ClCompile Include="Croogine_Init.cpp" />
     <ClCompile Include="Croogine_Loop.cpp" />
     <ClCompile Include="Croogine_ModelLoader.cpp" />
+    <ClCompile Include="Croogine_Pipeline.cpp" />
     <ClCompile Include="Croogine_RenderPipeline.cpp" />
     <ClCompile Include="Croogine_VKAntialiasing.cpp" />
     <ClCompile Include="Croogine_VKBufferHandling.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Croogine_constants.h" />
     <ClInclude Include="Croogine_Core.h" />
     <ClInclude Include="Croogine_Enums.h" />
+    <ClInclude Include="Croogine_Pipeline.h" />
     <ClInclude Include="Croogine_VKBufferHandling.h" />
     <ClInclude Include="Croogine_VKDepth.h" />
     <ClInclude Include="Croogine_VKMemory.h" />
