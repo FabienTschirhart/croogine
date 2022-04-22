@@ -2,8 +2,8 @@
 
 
 void Croogine::run() {
-    initWindow();   //Croogine_window
-    initGL();       //Croogine_Init
-    mainLoop();     //Croogine_Loop
-    cleanup();      //Croogine_Cleanup
+    //initWindow();   //Croogine_window
+    //initGL();       //Croogine_Init
+    //mainLoop();     //Croogine_Loop
+    //cleanup();      //Croogine_Cleanup
 }

@@ -114,15 +114,12 @@
     <ClCompile Include="Croogine_VKColor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Croogine_App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Croogine_constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Croogine_Core.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Croogine_Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Croogine_VKBufferHandling.h">
@@ -135,6 +132,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Croogine_VKDepth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Croogine_constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Croogine_Enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Croogine_App.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Croogine_window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

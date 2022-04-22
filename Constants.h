@@ -1,11 +1,12 @@
 #pragma once
-#ifndef CROOGINE_CONSTANTS
-#define CROOGINE_CONSTANTS
 
+#ifndef CONSTANTS
+#define CONSTANTS
+
+
+#include <string>
 
 #include "Croogine_Enums.h"
-#include "Croogine_VKVertex.h"
-#include "Croogine_Core.h"
 
 #ifdef NDEBUG
 const bool enableValidationLayers = false;
@@ -42,11 +43,4 @@ static constexpr int HEIGHT = 1080;
 const GL_API SELECTED_GL_API = Vulkan;
 const int MAX_FRAMES_IN_FLIGHT = 2;
 
-const std::vector<const char*> validationLayers = {
-    "VK_LAYER_KHRONOS_validation"
-};
-
-const std::vector<const char*> deviceExtensions = {
-    VK_KHR_SWAPCHAIN_EXTENSION_NAME
-};
 #endif
