@@ -75,9 +75,9 @@ void Croogine::drawFrame() {
 
 
 
-void Croogine::createRenderPipeline() {
-    auto vertShaderCode = readFile(vertexshader_file);
-    auto fragShaderCode = readFile(fragmentshader_file);
+void Croogine::createRenderPipeline(std::string vertexShader, std::string fragmentShader) {
+    auto vertShaderCode = readFile(vertexShader);
+    auto fragShaderCode = readFile(fragmentShader);
 
     VkShaderModule vertShaderModule = createShaderModule(vertShaderCode);
     VkShaderModule fragShaderModule = createShaderModule(fragShaderCode);

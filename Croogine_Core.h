@@ -163,7 +163,7 @@ private:
 
     void createDescriptorSetLayout();
 
-    void createRenderPipeline();
+    void createRenderPipeline(std::string vertexShader, std::string fragmentShader);
 
     void createFramebuffers();
 

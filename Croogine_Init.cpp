@@ -43,7 +43,7 @@ void Croogine::initVulkan() {
 
     createDescriptorSetLayout();
 
-        createRenderPipeline(); //per material
+    createRenderPipeline(vertexshader_file, fragmentshader_file); //per material
 
     createCommandPool();
 
@@ -82,7 +82,7 @@ void Croogine::recreateSwapChain()
     createSwapChain();
     createImageViews();
     createRenderPass();
-    createRenderPipeline();
+    createRenderPipeline(vertexshader_file, fragmentshader_file);
     createColorResources();
     createDepthResources();
     createFramebuffers();
