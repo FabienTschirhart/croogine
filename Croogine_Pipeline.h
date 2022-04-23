@@ -8,8 +8,7 @@ namespace Croogine {
 	public:
 		CrooginePipeline(const std::string& vertFilepath, const std::string& fragFilepath);
 
-	private:
-		static std::vector<char> readFile(const std::string& filepath);
+	private:		
 
 		void createGraphicsPipeline(const std::string& vertFilepath, const std::string& fragFilepath);
 	};

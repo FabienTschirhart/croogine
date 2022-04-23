@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Croogine_window.h"
 #include "Constants.h"
+#include "Croogine_window.h"
 #include "Croogine_Pipeline.h"
 
 namespace Croogine {

@@ -203,6 +203,7 @@
     <ClInclude Include="Croogine_VKMemory.h" />
     <ClInclude Include="Croogine_VKVertex.h" />
     <ClInclude Include="Croogine_window.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
