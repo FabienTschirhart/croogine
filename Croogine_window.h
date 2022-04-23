@@ -17,6 +17,9 @@ namespace Croogine {
 		~CroogineWindow();
 		CroogineWindow(const CroogineWindow &) = delete;
 		CroogineWindow &operator=(const CroogineWindow &) = delete;
+
+		void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
+
 		bool shouldClose();
 
 	private:

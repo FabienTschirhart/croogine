@@ -158,6 +158,7 @@
     <ClCompile Include="Croogine_App.cpp" />
     <ClCompile Include="Croogine_Cleanup.cpp" />
     <ClCompile Include="Croogine_Core.cpp" />
+    <ClCompile Include="Croogine_Device.cpp" />
     <ClCompile Include="Croogine_Init.cpp" />
     <ClCompile Include="Croogine_Loop.cpp" />
     <ClCompile Include="Croogine_ModelLoader.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Croogine_App.h" />
     <ClInclude Include="Croogine_constants.h" />
     <ClInclude Include="Croogine_Core.h" />
+    <ClInclude Include="Croogine_Device.h" />
     <ClInclude Include="Croogine_Enums.h" />
     <ClInclude Include="Croogine_Pipeline.h" />
     <ClInclude Include="Croogine_VKBufferHandling.h" />

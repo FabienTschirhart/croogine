@@ -8,12 +8,6 @@
 
 #include "Croogine_Enums.h"
 
-#ifdef NDEBUG
-const bool enableValidationLayers = false;
-#else
-const bool enableValidationLayers = true;
-#endif
-
 const int VERSION_VARIANT = 0;
 const int VERSION_MAJOR = 2;
 const int VERSION_MINOR = 0;

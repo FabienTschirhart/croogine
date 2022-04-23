@@ -3,6 +3,7 @@
 #include "Croogine_window.h"
 #include "Constants.h"
 
+#include <stdexcept>
 
 /*const std::string WINDOW_TITLE = ENGINE_NAME + " " + ENGINE_VERSION;
 
@@ -37,6 +38,13 @@ namespace Croogine {
         glfwDestroyWindow(window);
         glfwTerminate();
     }
+
+    void CroogineWindow::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface) {
+        if (glfwCreateWindowSurface(instance, window, nullptr, &surface) != VK_SUCCESS) {
+            throw std::runtime_error("failed to create window surface!");
+        }
+    }
+
 
     bool CroogineWindow::shouldClose() { return glfwWindowShouldClose(window); }
 }
