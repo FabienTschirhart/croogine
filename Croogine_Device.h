@@ -32,7 +32,6 @@ namespace Croogine {
 #else
             const bool enableValidationLayers = true;
 #endif
-
             CroogineDevice(CroogineWindow& window);
             ~CroogineDevice();
 

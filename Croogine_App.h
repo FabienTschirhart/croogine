@@ -3,6 +3,7 @@
 #include "Constants.h"
 #include "Croogine_window.h"
 #include "Croogine_Pipeline.h"
+#include "Croogine_Device.h"
 
 namespace Croogine {
 
@@ -11,8 +12,10 @@ namespace Croogine {
         void run();
 
     private:
-        CroogineWindow CroogineWindow{ WIDTH, HEIGHT, ENGINE_NAME + ENGINE_VERSION};
-        CrooginePipeline CrooginePipeline{ vertexshader_file, fragmentshader_file };
+        CroogineWindow croogineWindow{ WIDTH, HEIGHT, ENGINE_NAME + ENGINE_VERSION};
+        CroogineDevice croogineDevice{ croogineWindow };
+        VkPipelineLayout pipelineLayout;
+        CrooginePipeline CrooginePipeline{ croogineDevice, vertexshader_file, fragmentshader_file, CrooginePipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT) };
     };
 
 }
