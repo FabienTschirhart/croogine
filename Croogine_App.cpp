@@ -1,7 +1,6 @@
 #include "Croogine_App.h"
 
 
-
 namespace Croogine {
 
 	void CroogineApp::run() {

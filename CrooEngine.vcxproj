@@ -156,54 +156,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Croogine_App.cpp" />
-    <ClCompile Include="Croogine_Cleanup.cpp" />
-    <ClCompile Include="Croogine_Core.cpp" />
     <ClCompile Include="Croogine_Device.cpp" />
-    <ClCompile Include="Croogine_Init.cpp" />
-    <ClCompile Include="Croogine_Loop.cpp" />
-    <ClCompile Include="Croogine_ModelLoader.cpp" />
     <ClCompile Include="Croogine_Pipeline.cpp" />
-    <ClCompile Include="Croogine_RenderPipeline.cpp" />
-    <ClCompile Include="Croogine_VKAntialiasing.cpp" />
-    <ClCompile Include="Croogine_VKBufferHandling.cpp" />
-    <ClCompile Include="Croogine_VKColor.cpp" />
-    <ClCompile Include="Croogine_VKCommandBuffer.cpp" />
-    <ClCompile Include="Croogine_VKCommandPool.cpp" />
-    <ClCompile Include="Croogine_VKDebugMessenger.cpp" />
-    <ClCompile Include="Croogine_VKDepth.cpp" />
-    <ClCompile Include="Croogine_VKDescriptorPool.cpp" />
-    <ClCompile Include="Croogine_VKDescriptorSetLayout.cpp" />
-    <ClCompile Include="Croogine_VKDescriptorSets.cpp" />
-    <ClCompile Include="Croogine_VKFrameBuffer.cpp" />
-    <ClCompile Include="Croogine_VKImageViews.cpp" />
-    <ClCompile Include="Croogine_VKIndexBuffer.cpp" />
-    <ClCompile Include="Croogine_VKInstance.cpp" />
-    <ClCompile Include="Croogine_VKLogicalDevice.cpp" />
-    <ClCompile Include="Croogine_VKMemory.cpp" />
-    <ClCompile Include="Croogine_VKMipmaps.cpp" />
-    <ClCompile Include="Croogine_VKPhysicalDevice.cpp" />
-    <ClCompile Include="Croogine_VKRenderPass.cpp" />
-    <ClCompile Include="Croogine_VKSurface.cpp" />
-    <ClCompile Include="Croogine_VKSwapChain.cpp" />
-    <ClCompile Include="Croogine_VKSyncObjects.cpp" />
-    <ClCompile Include="Croogine_VKTextureImage.cpp" />
-    <ClCompile Include="Croogine_VKUniformBuffer.cpp" />
-    <ClCompile Include="Croogine_VKVertexBuffers.cpp" />
     <ClCompile Include="Croogine_window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Croogine_App.h" />
-    <ClInclude Include="Croogine_constants.h" />
-    <ClInclude Include="Croogine_Core.h" />
     <ClInclude Include="Croogine_Device.h" />
-    <ClInclude Include="Croogine_Enums.h" />
     <ClInclude Include="Croogine_Pipeline.h" />
-    <ClInclude Include="Croogine_VKBufferHandling.h" />
-    <ClInclude Include="Croogine_VKDepth.h" />
-    <ClInclude Include="Croogine_VKMemory.h" />
-    <ClInclude Include="Croogine_VKVertex.h" />
     <ClInclude Include="Croogine_window.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>

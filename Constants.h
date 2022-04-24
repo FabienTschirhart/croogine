@@ -6,7 +6,6 @@
 
 #include <string>
 
-#include "Croogine_Enums.h"
 
 const int VERSION_VARIANT = 0;
 const int VERSION_MAJOR = 2;
@@ -34,7 +33,6 @@ const std::string TEXTURE_PATH = "textures/Cornell_Box_Lightmap_2048.png";
 static constexpr int WIDTH = 1920;
 static constexpr int HEIGHT = 1080;
 
-const GL_API SELECTED_GL_API = Vulkan;
 const int MAX_FRAMES_IN_FLIGHT = 2;
 
 #endif

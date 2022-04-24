@@ -10,10 +10,10 @@
 namespace Croogine {
 
     CrooginePipeline::CrooginePipeline(
-        Croogine::CroogineDevice& device, 
-        const std::string& vertFilepath, 
-        const std::string& fragFilepath, 
-        const PipelineConfigInfo& configInfo) 
+        Croogine::CroogineDevice& device,
+        const std::string& vertFilepath,
+        const std::string& fragFilepath,
+        const PipelineConfigInfo& configInfo)
         : CroogineDevice{ device }
     {
         createGraphicsPipeline(vertFilepath, fragFilepath, configInfo);
@@ -27,7 +27,7 @@ namespace Croogine {
     }
 
     void CrooginePipeline::createGraphicsPipeline(
-        const std::string& vertFilepath, 
+        const std::string& vertFilepath,
         const std::string& fragFilepath,
         const PipelineConfigInfo& configInfo) {
 
@@ -38,7 +38,7 @@ namespace Croogine {
         std::cout << "Fragment Shader Code Size: " << fragCode.size() << '\n';
     }
 
-    void CrooginePipeline::createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule){
+    void CrooginePipeline::createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule) {
         VkShaderModuleCreateInfo createInfo{};
         createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
         createInfo.codeSize = code.size();
