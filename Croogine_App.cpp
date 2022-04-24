@@ -21,7 +21,7 @@ namespace Croogine {
         while (!croogineWindow.shouldClose()) //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
         {
             glfwPollEvents(); //check all events (click, resize, close, move, etc.) and set flags accordingly
-            //renderPipeline();
+            drawFrame();
         }
 	}
 
@@ -96,7 +96,6 @@ namespace Croogine {
 
             vkCmdEndRenderPass(commandBuffers[i]);
 
-
             if (vkEndCommandBuffer(commandBuffers[i]) != VK_SUCCESS) {
                 throw std::runtime_error("failed to record command buffer!");
             }
@@ -104,8 +103,18 @@ namespace Croogine {
 
     }
 
-    void CroogineApp::drawFrame()
-    {
+    void CroogineApp::drawFrame(){
+
+        uint32_t imageIndex;
+        auto result = croogineSwapChain.acquireNextImage(&imageIndex);
+        if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+            throw std::runtime_error("failed to acquire swap chain image !");
+        }
+
+        result = croogineSwapChain.submitCommandBuffers(&commandBuffers[imageIndex], &imageIndex);
+        if (result != VK_SUCCESS) {
+            throw std::runtime_error("failed to present swap chain image !");
+        }
     }
 
 

@@ -30,8 +30,8 @@ const std::string TEXTURE_PATH = "textures/Cornell_Box_Lightmap_2048.png";
 //const uint32_t WIDTH = 1920;
 //const uint32_t HEIGHT = 1080;
 
-static constexpr int WIDTH = 1920;
-static constexpr int HEIGHT = 1080;
+static constexpr int WIDTH = 1024;
+static constexpr int HEIGHT = 768;
 
 const int MAX_FRAMES_IN_FLIGHT = 2;
 
