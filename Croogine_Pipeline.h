@@ -24,7 +24,12 @@ namespace Croogine {
 
 	class CrooginePipeline {
 	public:
-		CrooginePipeline(CroogineDevice& device, const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo);
+		CrooginePipeline(
+			CroogineDevice& device, 
+			const std::string& vertFilepath, 
+			const std::string& fragFilepath, 
+			const PipelineConfigInfo& configInfo);
+
 		~CrooginePipeline();
 
 		CrooginePipeline(const CrooginePipeline&) = delete;
