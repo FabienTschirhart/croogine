@@ -10,20 +10,20 @@
 namespace Croogine {
 
     CrooginePipeline::CrooginePipeline(
-        Croogine::CroogineDevice& device,
+        CroogineDevice& device,
         const std::string& vertFilepath,
         const std::string& fragFilepath,
         const PipelineConfigInfo& configInfo)
-        : CroogineDevice{ device }
+        : croogineDevice{ device }
     {
         createGraphicsPipeline(vertFilepath, fragFilepath, configInfo);
     }
 
     CrooginePipeline::~CrooginePipeline()
     {
-        vkDestroyShaderModule(CroogineDevice.getDevice(), fragmentShaderModule, nullptr);
-        vkDestroyShaderModule(CroogineDevice.getDevice(), vertexShaderModule, nullptr);
-        vkDestroyPipeline(CroogineDevice.getDevice(), graphicsPipeline, nullptr);
+        vkDestroyShaderModule(croogineDevice.getDevice(), fragmentShaderModule, nullptr);
+        vkDestroyShaderModule(croogineDevice.getDevice(), vertexShaderModule, nullptr);
+        vkDestroyPipeline(croogineDevice.getDevice(), graphicsPipeline, nullptr);
     }
 
     void CrooginePipeline::createGraphicsPipeline(
@@ -42,7 +42,6 @@ namespace Croogine {
         //create shader modules for both shaders
         createShaderModule(vertCode, &vertexShaderModule);
         createShaderModule(fragCode, &fragmentShaderModule);
-
         
         VkPipelineShaderStageCreateInfo shaderStages[2];
 
@@ -71,13 +70,20 @@ namespace Croogine {
         vertexInputInfo.vertexAttributeDescriptionCount = 0;
         vertexInputInfo.pVertexAttributeDescriptions = nullptr;
 
-        VkGraphicsPipelineCreateInfo pipelineInfo = {};
+        VkPipelineViewportStateCreateInfo viewportInfo{};
+        viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+        viewportInfo.viewportCount = 1;
+        viewportInfo.pViewports = &configInfo.viewport;
+        viewportInfo.scissorCount = 1;
+        viewportInfo.pScissors = &configInfo.scissor;
+
+        VkGraphicsPipelineCreateInfo pipelineInfo{};
         pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-        pipelineInfo.stageCount = sizeof(shaderStages); //
+        pipelineInfo.stageCount = 2; // sizeof(shaderStages); //
         pipelineInfo.pStages = shaderStages;
         pipelineInfo.pVertexInputState = &vertexInputInfo;
         pipelineInfo.pInputAssemblyState = &configInfo.inputAssemblyInfo;
-        pipelineInfo.pViewportState = &configInfo.viewportInfo;
+        pipelineInfo.pViewportState = &viewportInfo;
         pipelineInfo.pRasterizationState = &configInfo.rasterizationInfo;
         pipelineInfo.pMultisampleState = &configInfo.multisampleInfo;
         pipelineInfo.pColorBlendState = &configInfo.colorBlendInfo;
@@ -93,7 +99,7 @@ namespace Croogine {
         pipelineInfo.basePipelineIndex = -1;               
 
         if (vkCreateGraphicsPipelines(
-            CroogineDevice.getDevice(),
+            croogineDevice.getDevice(),
             VK_NULL_HANDLE,
             1,
             &pipelineInfo,
@@ -110,13 +116,12 @@ namespace Croogine {
         createInfo.codeSize = code.size();
         createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data()); //cast shader code 
 
-        if (vkCreateShaderModule(CroogineDevice.getDevice(), &createInfo, nullptr, shaderModule) != VK_SUCCESS) {
+        if (vkCreateShaderModule(croogineDevice.getDevice(), &createInfo, nullptr, shaderModule) != VK_SUCCESS) {
             throw std::runtime_error("failed to create shader module!");
         }
     }
 
-    PipelineConfigInfo CrooginePipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height) {
-        PipelineConfigInfo configInfo{};
+    void CrooginePipeline::defaultPipelineConfigInfo(PipelineConfigInfo& configInfo, uint32_t width, uint32_t height) {
 
         configInfo.inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
         configInfo.inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
@@ -131,13 +136,6 @@ namespace Croogine {
 
         configInfo.scissor.offset = { 0, 0 };
         configInfo.scissor.extent = { width, height };
-
-        // creates a self-referencing structure
-        configInfo.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-        configInfo.viewportInfo.viewportCount = 1;
-        configInfo.viewportInfo.pViewports = &configInfo.viewport;
-        configInfo.viewportInfo.scissorCount = 1;
-        configInfo.viewportInfo.pScissors = &configInfo.scissor;
 
         configInfo.rasterizationInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
         configInfo.rasterizationInfo.depthClampEnable = VK_FALSE;
@@ -191,6 +189,5 @@ namespace Croogine {
         configInfo.depthStencilInfo.front = {};  // Optional
         configInfo.depthStencilInfo.back = {};   // Optional
 
-        return configInfo;
     }
 }

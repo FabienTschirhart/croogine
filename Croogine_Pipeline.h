@@ -10,7 +10,6 @@ namespace Croogine {
 	struct PipelineConfigInfo {
 		VkViewport viewport;
 		VkRect2D scissor;
-		VkPipelineViewportStateCreateInfo viewportInfo;
 		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
 		VkPipelineRasterizationStateCreateInfo rasterizationInfo;
 		VkPipelineMultisampleStateCreateInfo multisampleInfo;
@@ -35,15 +34,22 @@ namespace Croogine {
 		CrooginePipeline(const CrooginePipeline&) = delete;
 		void operator=(const CrooginePipeline&) = delete;
 
-		static PipelineConfigInfo defaultPipelineConfigInfo(uint32_t width, uint32_t height);
+		void bind(VkCommandBuffer commandBuffer);
+
+		static void defaultPipelineConfigInfo(PipelineConfigInfo& configInfo, uint32_t width, uint32_t height);
 
 	private:
 
-		void createGraphicsPipeline(const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo);
+		void createGraphicsPipeline(
+			const std::string& vertFilepath, 
+			const std::string& fragFilepath, 
+			const PipelineConfigInfo& configInfo);
 
-		void createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);
+		void createShaderModule(
+			const std::vector<char>& code, 
+			VkShaderModule* shaderModule);
 
-		CroogineDevice& CroogineDevice;
+		CroogineDevice& croogineDevice;
 		VkPipeline graphicsPipeline;
 		VkShaderModule vertexShaderModule;
 		VkShaderModule fragmentShaderModule;
