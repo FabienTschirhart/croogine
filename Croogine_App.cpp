@@ -23,6 +23,8 @@ namespace Croogine {
             glfwPollEvents(); //check all events (click, resize, close, move, etc.) and set flags accordingly
             drawFrame();
         }
+
+        vkDeviceWaitIdle(croogineDevice.getDevice());
 	}
 
     void CroogineApp::createPipelineLayout() {
