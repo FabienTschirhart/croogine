@@ -13,8 +13,6 @@ namespace Croogine {
 		CroogineModel(const CroogineModel&) = delete;
 		CroogineModel& operator=(const CroogineModel&) = delete;
 
-
-
 	private :
 		CroogineDevice croogineDevice;
 		VkBuffer vertexBuffer;
