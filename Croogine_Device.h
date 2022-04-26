@@ -35,10 +35,10 @@ namespace Croogine {
             CroogineDevice(CroogineWindow& window);
             ~CroogineDevice();
 
-            CroogineDevice(const CroogineDevice&) = delete;
-            void operator=(const CroogineDevice&) = delete;
-            CroogineDevice(CroogineDevice&&) = delete;
-            CroogineDevice& operator=(CroogineDevice&&) = delete;
+            CroogineDevice(const CroogineDevice &) = delete;
+            void operator=(const CroogineDevice &) = delete;
+            CroogineDevice(CroogineDevice &&) = delete;
+            CroogineDevice &operator=(CroogineDevice &&) = delete;
 
             VkCommandPool getCommandPool() { return commandPool; }
             VkDevice getDevice() { return device; }
