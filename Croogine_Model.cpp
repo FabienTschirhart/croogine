@@ -35,17 +35,25 @@ namespace Croogine {
 		vkUnmapMemory(croogineDevice.getDevice(), vertexBufferMemory);
 	}
 
-	void CroogineModel::bind(VkCommandBuffer commandBuffer){
+	void CroogineModel::draw(VkCommandBuffer commandBuffer){
 		vkCmdDraw(commandBuffer, vertexCount, 1, 0, 0);	
 	}
 
 
-	void CroogineModel::draw(VkCommandBuffer commandBuffer){
+	void CroogineModel::bind(VkCommandBuffer commandBuffer){
 		VkBuffer buffers[] = { vertexBuffer };
 		VkDeviceSize offsets[] = { 0 };
 		vkCmdBindVertexBuffers(commandBuffer, 0, 1, buffers, offsets);
 
 
+	}
+
+	std::vector<VkVertexInputBindingDescription> CroogineModel::Vertex::getBindingDescriptions() {
+		return{ { 0,sizeof(Vertex), VK_VERTEX_INPUT_RATE_VERTEX } }; //{binding, stride, inputrate}
+	}
+
+	std::vector<VkVertexInputAttributeDescription> CroogineModel::Vertex::getAttributeDescriptions() {
+		return{ {0,0,VK_FORMAT_R32G32_SFLOAT, 0} }; //{binding, location, format, offset}
 	}
 
 }

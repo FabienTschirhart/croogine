@@ -6,6 +6,7 @@
 namespace Croogine {
 
     CroogineApp::CroogineApp() {
+        loadModels();
         createPipelineLayout();
         createPipeline();
         createCommandBuffers();
@@ -26,6 +27,17 @@ namespace Croogine {
 
         vkDeviceWaitIdle(croogineDevice.getDevice());
 	}
+
+    void CroogineApp::loadModels() {
+        std::vector<CroogineModel::Vertex> vertices{
+            {{0.0f, 0.5f}},
+            {{0.5f, -0.5f}},
+            {{-0.5f, -0.5f}}
+        };
+
+        croogineModel = std::make_unique<CroogineModel>(croogineDevice, vertices);
+    }
+        
 
     void CroogineApp::createPipelineLayout() {
         VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
@@ -93,7 +105,8 @@ namespace Croogine {
             vkCmdBeginRenderPass(commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
             crooginePipeline->bind(commandBuffers[i]);
-            vkCmdDraw(commandBuffers[i], 3, 1, 0, 0);
+            croogineModel->bind(commandBuffers[i]);
+            croogineModel->draw(commandBuffers[i]);
 
             vkCmdEndRenderPass(commandBuffers[i]);
 

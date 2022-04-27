@@ -5,6 +5,7 @@
 #include "Croogine_Pipeline.h"
 #include "Croogine_Device.h"
 #include "Croogine_SwapChain.h"
+#include "Croogine_model.h"
 
 #include <memory>
 #include <vector>
@@ -24,6 +25,7 @@ namespace Croogine {
 
     private:
 
+        void loadModels();
         void createPipelineLayout();
         void createPipeline();
         void createCommandBuffers();
@@ -36,6 +38,6 @@ namespace Croogine {
         std::unique_ptr<CrooginePipeline> crooginePipeline;
         VkPipelineLayout pipelineLayout;
         std::vector<VkCommandBuffer> commandBuffers;
-
+        std::unique_ptr<CroogineModel> croogineModel;
     };
 }
