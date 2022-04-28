@@ -49,11 +49,16 @@ namespace Croogine {
 	}
 
 	std::vector<VkVertexInputBindingDescription> CroogineModel::Vertex::getBindingDescriptions() {
-		return{ { 0,sizeof(Vertex), VK_VERTEX_INPUT_RATE_VERTEX } }; //{binding, stride, inputrate}
+		return{ 
+			{ 0,sizeof(Vertex), VK_VERTEX_INPUT_RATE_VERTEX } 
+		}; //{binding, stride, inputrate}
 	}
 
 	std::vector<VkVertexInputAttributeDescription> CroogineModel::Vertex::getAttributeDescriptions() {
-		return{ {0,0,VK_FORMAT_R32G32_SFLOAT, 0} }; //{binding, location, format, offset}
+		return{ 
+			{0,0,VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex,position)}, 
+			{1,0,VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, color)} 
+		};  //{location, binding, format, offset}
 	}
 
 }
