@@ -2,12 +2,12 @@
 
 #include "Croogine_Device.h"
 
-// vulkan headers
 #include <vulkan/vulkan.h>
 
-// std lib headers
 #include <string>
+#include <memory>
 #include <vector>
+
 
 namespace Croogine {
 
@@ -16,10 +16,12 @@ namespace Croogine {
         static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
 
         CroogineSwapChain(CroogineDevice& deviceRef, VkExtent2D windowExtent);
+        CroogineSwapChain(CroogineDevice& deviceRef, VkExtent2D windowExtent, std::shared_ptr<CroogineSwapChain> previous);
+
         ~CroogineSwapChain();
 
         CroogineSwapChain(const CroogineSwapChain&) = delete;
-        void operator=(const CroogineSwapChain&) = delete;
+        CroogineSwapChain &operator=(const CroogineSwapChain&) = delete;
 
         VkFramebuffer getFrameBuffer(int index) { return swapChainFramebuffers[index]; }
         VkRenderPass getRenderPass() { return renderPass; }
@@ -34,11 +36,11 @@ namespace Croogine {
             return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height);
         }
         VkFormat findDepthFormat();
-
         VkResult acquireNextImage(uint32_t* imageIndex);
         VkResult submitCommandBuffers(const VkCommandBuffer* buffers, uint32_t* imageIndex);
 
     private:
+        void init();
         void createSwapChain();
         void createImageViews();
         void createDepthResources();
@@ -68,6 +70,7 @@ namespace Croogine {
         VkExtent2D windowExtent;
 
         VkSwapchainKHR swapChain;
+        std::shared_ptr<CroogineSwapChain> oldSwapChain;
 
         std::vector<VkSemaphore> imageAvailableSemaphores;
         std::vector<VkSemaphore> renderFinishedSemaphores;

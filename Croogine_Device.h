@@ -2,8 +2,6 @@
 
 #include "Croogine_window.h"
 
-//std
-#include <vector>
 #include <vector>
 
 
@@ -36,7 +34,7 @@ namespace Croogine {
             ~CroogineDevice();
 
             CroogineDevice(const CroogineDevice &) = delete;
-            void operator=(const CroogineDevice &) = delete;
+            CroogineDevice &operator=(const CroogineDevice &) = delete;
             CroogineDevice(CroogineDevice &&) = delete;
             CroogineDevice &operator=(CroogineDevice &&) = delete;
 

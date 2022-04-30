@@ -27,11 +27,11 @@ namespace Croogine {
         glfwInit();
 
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API); //By default, GLFW will generate an OpenGL context window. As we are using Vulkan instead of OpenGL
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); //We don't want the window to be resizable
-
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
         window = glfwCreateWindow(width, height, windowName.c_str(), nullptr, nullptr); //define window size and title (both are declared in Croogine_constants.h). No monitor for fulllscreen.
-        //glfwSetWindowUserPointer(window, this);
-        //glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);
+        
+        glfwSetWindowUserPointer(window, this);
+        glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);
     }
 
     CroogineWindow::~CroogineWindow() {
@@ -47,4 +47,12 @@ namespace Croogine {
 
 
     bool CroogineWindow::shouldClose() { return glfwWindowShouldClose(window); }
+
+    void CroogineWindow::framebufferResizeCallback(GLFWwindow* window, int width, int height)
+    {
+        auto croogineWindow = reinterpret_cast<CroogineWindow*>(glfwGetWindowUserPointer(window));
+        croogineWindow->framebufferResized = true;
+        croogineWindow->width = width;
+        croogineWindow->height = height;
+    }
 }

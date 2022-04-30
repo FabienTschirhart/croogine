@@ -29,15 +29,20 @@ namespace Croogine {
         void createPipelineLayout();
         void createPipeline();
         void createCommandBuffers();
+        void freeCommandBuffers();
         void drawFrame();
+        void recreateSwapChain();
+        void recordCommandBuffer(int imageIndex);
 
         CroogineWindow croogineWindow{ WIDTH, HEIGHT, ENGINE_NAME + ENGINE_VERSION};
         CroogineDevice croogineDevice{ croogineWindow };
-        CroogineSwapChain croogineSwapChain{ croogineDevice, croogineWindow.getExtent() };
 
+        std::unique_ptr<CroogineSwapChain> croogineSwapChain;
         std::unique_ptr<CrooginePipeline> crooginePipeline;
-        VkPipelineLayout pipelineLayout;
         std::vector<VkCommandBuffer> commandBuffers;
         std::unique_ptr<CroogineModel> croogineModel;
+
+        VkPipelineLayout pipelineLayout;
+
     };
 }
