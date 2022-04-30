@@ -167,6 +167,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Croogine_App.h" />
     <ClInclude Include="Croogine_Device.h" />
+    <ClInclude Include="Croogine_Entity.h" />
     <ClInclude Include="Croogine_Model.h" />
     <ClInclude Include="Croogine_Pipeline.h" />
     <ClInclude Include="Croogine_SwapChain.h" />

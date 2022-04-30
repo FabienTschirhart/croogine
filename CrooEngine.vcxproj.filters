@@ -62,5 +62,8 @@
     <ClInclude Include="Croogine_Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Croogine_Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

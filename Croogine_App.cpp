@@ -18,7 +18,7 @@ namespace Croogine {
     };
 
     CroogineApp::CroogineApp() {
-        loadModels();
+        loadEntities();
         createPipelineLayout();
         recreateSwapChain();
         createCommandBuffers();
@@ -39,14 +39,21 @@ namespace Croogine {
         vkDeviceWaitIdle(croogineDevice.getDevice());
 	}
 
-    void CroogineApp::loadModels() {
+    void CroogineApp::loadEntities() {
         std::vector<CroogineModel::Vertex> vertices{
             {{0.0f, 0.5f}, {1.0f, 0.0f, 0.0f}},
             {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
             {{-0.5f, -0.5f}, {0.0f, 0.0f, 1.0f}}
         };
 
-        croogineModel = std::make_unique<CroogineModel>(croogineDevice, vertices);
+        auto croogineModel = std::make_shared<CroogineModel>(croogineDevice, vertices);
+
+        auto triangle = CroogineEntity::createEntity();
+        triangle.model = croogineModel;
+        triangle.color = { .1f, .8f, .1f };
+        triangle.transform2D.translation.x = .2f;
+
+        entities.push_back(std::move(triangle));
     }
         
 
@@ -139,10 +146,6 @@ namespace Croogine {
 
     void CroogineApp::recordCommandBuffer(int imageIndex) {
 
-        static int frame = 0;
-        frame = (1 + frame) % 5000;
-
-
         VkCommandBufferBeginInfo beginInfo{};
         beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 
@@ -176,26 +179,36 @@ namespace Croogine {
         vkCmdSetViewport(commandBuffers[imageIndex], 0, 1, &viewport);
         vkCmdSetScissor(commandBuffers[imageIndex], 0, 1, &scissor);
 
-        crooginePipeline->bind(commandBuffers[imageIndex]);
-        croogineModel->bind(commandBuffers[imageIndex]);
-
-        for (int j = 0; j < 4; j++)
-        {
-            SimplePushConstantData push{};
-            push.offset = { -1.0f + frame * 0.0005f, -0.4f + j * 0.25f };
-            push.color = { 0.0f, 0.0f, 0.2f + 0.2f * j };
-
-            vkCmdPushConstants(commandBuffers[imageIndex], pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(SimplePushConstantData), &push);
-            croogineModel->draw(commandBuffers[imageIndex]);
-        }
-
-        croogineModel->draw(commandBuffers[imageIndex]);
+        renderEntities(commandBuffers[imageIndex]);
 
         vkCmdEndRenderPass(commandBuffers[imageIndex]);
         if (vkEndCommandBuffer(commandBuffers[imageIndex]) != VK_SUCCESS) {
             throw std::runtime_error("failed to record command buffer!");
         }
     }
+
+    void CroogineApp::renderEntities(VkCommandBuffer commandBuffer) {
+        crooginePipeline->bind(commandBuffer);
+
+        for (auto& entity : entities) {
+            SimplePushConstantData push{};
+            push.offset = entity.transform2D.translation;
+            push.color = entity.color;
+            push.transform = entity.transform2D.mat2();
+
+            vkCmdPushConstants(
+                commandBuffer, 
+                pipelineLayout, 
+                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 
+                0, 
+                sizeof(SimplePushConstantData), 
+                &push);
+
+            entity.model->bind(commandBuffer);
+            entity.model->draw(commandBuffer);
+        }
+    }
+
 
     void CroogineApp::drawFrame(){
 
