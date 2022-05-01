@@ -4,6 +4,7 @@
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
 
 #include <array>
 #include <cassert>
@@ -48,12 +49,14 @@ namespace Croogine {
 
         auto croogineModel = std::make_shared<CroogineModel>(croogineDevice, vertices);
 
-        auto triangle = CroogineEntity::createEntity();
-        triangle.model = croogineModel;
-        triangle.color = { .1f, .8f, .1f };
-        triangle.transform2D.translation.x = .2f;
+        auto mesh = CroogineEntity::createEntity();
+        mesh.model = croogineModel;
+        mesh.color = { .1f, .8f, .1f };
+        mesh.transform2D.translation.x = .2f;
+        mesh.transform2D.scale = { 1.f, 1.f };
+        mesh.transform2D.rotation = -.25f * glm::two_pi<float>();
 
-        entities.push_back(std::move(triangle));
+        entities.push_back(std::move(mesh));
     }
         
 
@@ -191,6 +194,9 @@ namespace Croogine {
         crooginePipeline->bind(commandBuffer);
 
         for (auto& entity : entities) {
+
+            entity.transform2D.rotation = glm::mod(entity.transform2D.rotation + 0.001f, glm::two_pi<float>());
+
             SimplePushConstantData push{};
             push.offset = entity.transform2D.translation;
             push.color = entity.color;

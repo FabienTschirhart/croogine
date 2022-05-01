@@ -9,9 +9,18 @@ namespace Croogine {
 
 	struct Transform2d {
 		glm::vec2 translation{};
+		glm::vec2 scale{ 1.0f, 1.0f };
+		float rotation;
 
 
-		glm::mat2 mat2() { return glm::mat2(1.f); }
+		glm::mat2 mat2() {
+			const float s = glm::sin(rotation);
+			const float c = glm::cos(rotation);
+
+			glm::mat2 rotationMatrix{ {c,s}, {-s, c }};		
+			glm::mat2 scaleMatrix{ {scale.x, .0f}, {.0f, scale.y} };
+			return rotationMatrix * scaleMatrix;
+		}
 	};
 
 	class CroogineEntity {
