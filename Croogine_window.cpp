@@ -15,8 +15,10 @@ void Croogine::framebufferResizeCallback(GLFWwindow* window, int width, int heig
 
 namespace Croogine {
 
-    CroogineWindow::CroogineWindow(int width, int height, std::string name) : width{ width }, height{ height }{  
+    CroogineWindow::CroogineWindow(int width, int height, std::string name){  
 
+        this->width = width;
+        this->height = height;
         this->windowName = name;
         initWindow();
     }

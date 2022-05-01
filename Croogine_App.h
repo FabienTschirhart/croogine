@@ -38,6 +38,7 @@ namespace Croogine {
         CroogineWindow croogineWindow{ WIDTH, HEIGHT, ENGINE_NAME + ENGINE_VERSION};
         CroogineDevice croogineDevice{ croogineWindow };
 
+
         std::unique_ptr<CroogineSwapChain> croogineSwapChain;
         std::unique_ptr<CrooginePipeline> crooginePipeline;
         std::vector<VkCommandBuffer> commandBuffers;
