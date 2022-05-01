@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Constants.h"
 #include "Croogine_window.h"
 #include "Croogine_Device.h"
 #include "Croogine_SwapChain.h"
@@ -25,13 +24,18 @@ namespace Croogine {
 
         VkCommandBuffer getCurrentCommandBuffer() const { 
             assert(isFrameStarted && "Cannot retrieve command buffer : Frame rendering is not in progress !");
-            return commandBuffers[currentImageIndex]; 
+            return commandBuffers[currentFrameIndex]; 
+        }
+
+        int getFrameIndex() const {
+            assert(isFrameStarted && "Cannot get frame index : no frame is being rendered !");
+            return currentFrameIndex;
         }
 
         VkCommandBuffer beginFrame();
         void endFrame();
-        void beginSwapChainRenderPass(VkCommandBuffer commandBuffer);
-        void endSwapChainRenderPass(VkCommandBuffer commandBuffer);
+        void beginSCRenderPass(VkCommandBuffer commandBuffer);
+        void endSCRenderPass(VkCommandBuffer commandBuffer);
 
     private:
 
@@ -47,6 +51,7 @@ namespace Croogine {
         std::vector<VkCommandBuffer> commandBuffers;
 
         uint32_t currentImageIndex;
+        int currentFrameIndex;
         bool isFrameStarted;
     };
 }

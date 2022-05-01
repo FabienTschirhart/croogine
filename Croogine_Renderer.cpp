@@ -31,18 +31,16 @@ namespace Croogine {
             croogineSwapChain = std::make_unique<CroogineSwapChain>(croogineDevice, extent);
         }
         else {
+            std::shared_ptr<CroogineSwapChain> oldSwapChain = std::move(croogineSwapChain);
             croogineSwapChain = std::make_unique<CroogineSwapChain>(croogineDevice, extent, std::move(croogineSwapChain));
-            if (croogineSwapChain->imageCount() != commandBuffers.size())
-            {
-                freeCommandBuffers();
-                createCommandBuffers();
-            }
+            if (!oldSwapChain->compareSwapFormat(*croogineSwapChain.get()))
+                throw std::runtime_error("Swap chain image or depth format has changed !");
         }
     }
 
     void CroogineRenderer::createCommandBuffers() {
 
-        commandBuffers.resize(croogineSwapChain->imageCount());
+        commandBuffers.resize(CroogineSwapChain::MAX_FRAMES_IN_FLIGHT);
 
         VkCommandBufferAllocateInfo allocInfo{};
         allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -109,9 +107,10 @@ namespace Croogine {
         else if (result != VK_SUCCESS) 
             throw std::runtime_error("failed to present swap chain image !");
         isFrameStarted = false;
+        currentFrameIndex = (currentFrameIndex + 1) % CroogineSwapChain::MAX_FRAMES_IN_FLIGHT;
     }
 
-    void CroogineRenderer::beginSwapChainRenderPass(VkCommandBuffer commandBuffer) {
+    void CroogineRenderer::beginSCRenderPass(VkCommandBuffer commandBuffer) {
         assert(isFrameStarted && "Cannot begin swap chain render pass : there is not frame being rendered");
         assert(commandBuffer == getCurrentCommandBuffer() && "Cannot begin render pass on this command buffer as it is not the same frame");
 
@@ -144,7 +143,7 @@ namespace Croogine {
 
     }
 
-    void CroogineRenderer::endSwapChainRenderPass(VkCommandBuffer commandBuffer) {
+    void CroogineRenderer::endSCRenderPass(VkCommandBuffer commandBuffer) {
         assert(isFrameStarted && "Cannot end swap chain render pass : there is not frame being rendered");
         assert(commandBuffer == getCurrentCommandBuffer() && "Cannot end render pass on this command buffer as it is not the same frame");
 

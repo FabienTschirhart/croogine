@@ -1,5 +1,6 @@
 #include "Croogine_App.h"
 
+#include "Croogine_RenderSystem.h"
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -12,32 +13,24 @@
 
 namespace Croogine {
 
-    struct SimplePushConstantData {
-        glm::mat2 transform{ 1.f };
-        glm::vec2 offset;
-        alignas(16) glm::vec3 color;
-    };
-
     CroogineApp::CroogineApp() {
         loadEntities();
-        createPipelineLayout();
-        createPipeline();
     }
 
-    CroogineApp::~CroogineApp() {
-        vkDestroyPipelineLayout(croogineDevice.getDevice(), pipelineLayout, nullptr);
-    }
+    CroogineApp::~CroogineApp() {}
 
 	void CroogineApp::run() {
+
+        CroogineRenderSystem renderSystem{ croogineDevice, croogineRenderer.getSwapChainRenderPass() };
 
         while (!croogineWindow.shouldClose()) //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
         {
             glfwPollEvents(); //check all events (click, resize, close, move, etc.) and set flags accordingly
 
             if (auto commandBuffer = croogineRenderer.beginFrame()) {
-                croogineRenderer.beginSwapChainRenderPass(commandBuffer);
-                renderEntities(commandBuffer);
-                croogineRenderer.endSwapChainRenderPass(commandBuffer);
+                croogineRenderer.beginSCRenderPass(commandBuffer);
+                renderSystem.renderEntities(commandBuffer, entities);
+                croogineRenderer.endSCRenderPass(commandBuffer);
                 croogineRenderer.endFrame();
             }
         }
@@ -63,67 +56,4 @@ namespace Croogine {
 
         entities.push_back(std::move(mesh));
     }
-        
-
-    void CroogineApp::createPipelineLayout() {
-
-        VkPushConstantRange pushConstantRange{};
-        pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
-        pushConstantRange.offset = 0;
-        pushConstantRange.size = sizeof(SimplePushConstantData);
-
-
-        VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
-        pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-        pipelineLayoutInfo.setLayoutCount = 0;
-        pipelineLayoutInfo.pSetLayouts = nullptr;
-        pipelineLayoutInfo.pushConstantRangeCount = 1;
-        pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
-        if (vkCreatePipelineLayout(croogineDevice.getDevice(), &pipelineLayoutInfo, nullptr, &pipelineLayout) !=
-            VK_SUCCESS) {
-            throw std::runtime_error("failed to create pipeline layout !");
-        }
-    }
-
-    void CroogineApp::createPipeline(){
-
-        assert(pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
-
-        PipelineConfigInfo pipelineConfig{};
-        CrooginePipeline::defaultPipelineConfigInfo(pipelineConfig);
-        pipelineConfig.renderPass = croogineRenderer.getSwapChainRenderPass();
-        pipelineConfig.pipelineLayout = pipelineLayout;
-        crooginePipeline = std::make_unique<CrooginePipeline>(
-            croogineDevice,
-            vertexshader_file,
-            fragmentshader_file,
-            pipelineConfig
-            );
-    }
-
-
-    void CroogineApp::renderEntities(VkCommandBuffer commandBuffer) {
-        crooginePipeline->bind(commandBuffer);
-
-        for (auto& entity : entities) {
-
-            entity.transform2D.rotation = glm::mod(entity.transform2D.rotation + 0.001f, glm::two_pi<float>());
-
-            SimplePushConstantData push{};
-            push.color = entity.color;
-            push.transform = entity.transform2D.mat2();
-
-            vkCmdPushConstants(
-                commandBuffer, 
-                pipelineLayout, 
-                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 
-                0, 
-                sizeof(SimplePushConstantData), 
-                &push);
-
-            entity.model->bind(commandBuffer);
-            entity.model->draw(commandBuffer);
-        }
-    }
-
 }
