@@ -50,8 +50,8 @@ namespace Croogine {
         std::unique_ptr<CroogineSwapChain> croogineSwapChain;
         std::vector<VkCommandBuffer> commandBuffers;
 
-        uint32_t currentImageIndex;
+        uint32_t currentImageIndex{ 0 };
         int currentFrameIndex;
-        bool isFrameStarted;
+        bool isFrameStarted{ false };
     };
 }
