@@ -1,0 +1,52 @@
+#pragma once
+
+#include "Constants.h"
+#include "Croogine_window.h"
+#include "Croogine_Device.h"
+#include "Croogine_SwapChain.h"
+
+#include <cassert>
+#include <memory>
+#include <vector>
+
+namespace Croogine {
+
+    class CroogineRenderer {
+    public:
+
+        CroogineRenderer(CroogineWindow &window, CroogineDevice &device);
+        ~CroogineRenderer();
+
+        CroogineRenderer(const CroogineRenderer&) = delete;
+        CroogineRenderer& operator=(const CroogineRenderer&) = delete;
+
+        VkRenderPass getSwapChainRenderPass() const { return croogineSwapChain->getRenderPass(); }
+        bool isFrameInProgress() const { return isFrameStarted; }
+
+        VkCommandBuffer getCurrentCommandBuffer() const { 
+            assert(isFrameStarted && "Cannot retrieve command buffer : Frame rendering is not in progress !");
+            return commandBuffers[currentImageIndex]; 
+        }
+
+        VkCommandBuffer beginFrame();
+        void endFrame();
+        void beginSwapChainRenderPass(VkCommandBuffer commandBuffer);
+        void endSwapChainRenderPass(VkCommandBuffer commandBuffer);
+
+    private:
+
+        void createCommandBuffers();
+        void freeCommandBuffers();
+        void recreateSwapChain();
+
+
+        CroogineWindow& croogineWindow;
+        CroogineDevice& croogineDevice;
+
+        std::unique_ptr<CroogineSwapChain> croogineSwapChain;
+        std::vector<VkCommandBuffer> commandBuffers;
+
+        uint32_t currentImageIndex;
+        bool isFrameStarted;
+    };
+}
