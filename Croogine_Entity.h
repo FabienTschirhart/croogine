@@ -2,24 +2,27 @@
 
 #include "Croogine_Model.h"
 
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <memory>
 
 namespace Croogine {
 
-	struct Transform2d {
-		glm::vec2 translation{};
-		glm::vec2 scale{ 1.0f, 1.0f };
-		float rotation;
+	struct Transform {
+		glm::vec3 translation{};
+		glm::vec3 scale{ 1.0f, 1.0f, 1.0f };
+		glm::vec3 rotation{};
 
 
-		glm::mat2 mat2() {
-			const float s = glm::sin(rotation);
-			const float c = glm::cos(rotation);
+		glm::mat4 mat4() {
+			auto transform = glm::translate(glm::mat4{ 1.f }, translation);
 
-			glm::mat2 rotationMatrix{ {c,s}, {-s, c }};		
-			glm::mat2 scaleMatrix{ {scale.x, .0f}, {.0f, scale.y} };
-			return rotationMatrix * scaleMatrix;
+			transform = glm::rotate(transform, rotation.y, { 0.0f, 1.0f, 0.0f });
+			transform = glm::rotate(transform, rotation.x, { 1.0f, 0.0f, 0.0f });
+			transform = glm::rotate(transform, rotation.z, { 0.0f, 0.0f, 1.0f });
+			transform = glm::scale(transform, scale);
+
+			return transform;
 		}
 	};
 
@@ -42,7 +45,7 @@ namespace Croogine {
 
 		std::shared_ptr<CroogineModel> model{};
 		glm::vec3 color{};
-		Transform2d transform2D{};
+		Transform transform{};
 
 	private:
 		CroogineEntity(id_t entityId): id(entityId) {}

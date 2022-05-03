@@ -13,8 +13,7 @@
 namespace Croogine {
 
     struct SimplePushConstantData {
-        glm::mat2 transform{ 1.f };
-        glm::vec2 offset;
+        glm::mat4 transform{ 1.f };
         alignas(16) glm::vec3 color;
     };
 
@@ -70,11 +69,13 @@ namespace Croogine {
 
         for (auto& entity : entities) {
 
-            entity.transform2D.rotation = glm::mod(entity.transform2D.rotation + 0.001f, glm::two_pi<float>());
+            entity.transform.rotation.y = glm::mod(entity.transform.rotation.y + 0.001f, glm::two_pi<float>());
+            entity.transform.rotation.x = glm::mod(entity.transform.rotation.x + 0.0001f, glm::two_pi<float>());
+
 
             SimplePushConstantData push{};
             push.color = entity.color;
-            push.transform = entity.transform2D.mat2();
+            push.transform = entity.transform.mat4();
 
             vkCmdPushConstants(
                 commandBuffer,
