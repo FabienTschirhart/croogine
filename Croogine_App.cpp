@@ -1,5 +1,5 @@
 #include "Croogine_App.h"
-
+#include "Croogine_Camera.h"
 #include "Croogine_RenderSystem.h"
 
 #define GLM_FORCE_RADIANS
@@ -22,6 +22,8 @@ namespace Croogine {
 	void CroogineApp::run() {
 
         CroogineRenderSystem renderSystem{ croogineDevice, croogineRenderer.getSwapChainRenderPass() };
+        CroogineCamera camera{};
+        camera.setOrthographicProjection(-1, 1, -1, 1, -1, 1);
 
         while (!croogineWindow.shouldClose()) //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
         {
@@ -29,7 +31,7 @@ namespace Croogine {
 
             if (auto commandBuffer = croogineRenderer.beginFrame()) {
                 croogineRenderer.beginSCRenderPass(commandBuffer);
-                renderSystem.renderEntities(commandBuffer, entities);
+                renderSystem.renderEntities(commandBuffer, entities, camera);
                 croogineRenderer.endSCRenderPass(commandBuffer);
                 croogineRenderer.endFrame();
             }

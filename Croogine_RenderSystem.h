@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Croogine_Camera.h"
 #include "Croogine_Pipeline.h"
 #include "Croogine_Device.h"
 #include "Croogine_Entity.h"
@@ -18,7 +19,7 @@ namespace Croogine {
         CroogineRenderSystem(const CroogineRenderSystem&) = delete;
         CroogineRenderSystem& operator=(const CroogineRenderSystem&) = delete;
 
-        void renderEntities(VkCommandBuffer commandBuffer, std::vector<CroogineEntity> &entities);
+        void renderEntities(VkCommandBuffer commandBuffer, std::vector<CroogineEntity> &entities, const CroogineCamera &camera);
 
     private:
 

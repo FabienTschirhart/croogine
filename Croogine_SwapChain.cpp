@@ -174,8 +174,8 @@ namespace Croogine {
         createInfo.presentMode = presentMode;
         createInfo.clipped = VK_TRUE;
 
-        //createInfo.oldSwapchain = oldSwapChain == nullptr ? VK_NULL_HANDLE : oldSwapChain->swapChain;
-        createInfo.oldSwapchain = oldSwapChain ? oldSwapChain->swapChain : nullptr;
+        createInfo.oldSwapchain = oldSwapChain == nullptr ? VK_NULL_HANDLE : oldSwapChain->swapChain;
+        //createInfo.oldSwapchain = oldSwapChain ? oldSwapChain->swapChain : nullptr;
 
         if (vkCreateSwapchainKHR(device.getDevice(), &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
             throw std::runtime_error("failed to create swap chain!");

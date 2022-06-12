@@ -7,12 +7,18 @@
 namespace Croogine {
 
 	class CroogineCamera {
-	public:
-		void setOrthographicProjection(
-			float left, float right, float top, float bottom, float nearPlane, float farPlane);
+		public:
+			void setOrthographicProjection(
+				float left, float right, float top, float bottom, float nearPlane, float farPlane);
 
-		void setPerspectiveProjection(
-			float fov, float aspect, float nearPlane, float farPlane);
+			void setPerspectiveProjection(
+				float fov, float aspect, float nearPlane, float farPlane);
+
+			const glm::mat4& getProjection() const { return projectionMatrix; }
+
+		private:
+			glm::mat4 projectionMatrix{ 1.f };
+
 	};
 
 }

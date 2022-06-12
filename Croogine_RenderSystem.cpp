@@ -64,7 +64,7 @@ namespace Croogine {
     }
 
 
-    void CroogineRenderSystem::renderEntities(VkCommandBuffer commandBuffer, std::vector<CroogineEntity>& entities) {
+    void CroogineRenderSystem::renderEntities(VkCommandBuffer commandBuffer, std::vector<CroogineEntity>& entities, const CroogineCamera& camera) {
         crooginePipeline->bind(commandBuffer);
 
         for (auto& entity : entities) {
@@ -75,7 +75,7 @@ namespace Croogine {
 
             SimplePushConstantData push{};
             push.color = entity.color;
-            push.transform = entity.transform.mat4();
+            push.transform = camera.getProjection() * entity.transform.mat4();
 
             vkCmdPushConstants(
                 commandBuffer,
