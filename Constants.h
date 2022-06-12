@@ -5,7 +5,7 @@
 
 
 #include <string>
-
+#include <glm/glm.hpp>
 
 const int VERSION_VARIANT = 0;
 const int VERSION_MAJOR = 2;
@@ -34,5 +34,19 @@ static constexpr int WIDTH = 1024;
 static constexpr int HEIGHT = 768;
 
 const int MAX_FRAMES_IN_FLIGHT = 2;
+
+
+/* CAMERA */
+
+const float fov = glm::radians(60.f); //field of view
+
+const float orthTop = -1;
+const float orthBottom = 1;
+
+const float orthNearPlane = -1;
+const float orthFarPlane = 1;
+const float perspNearPlane = 0.1f;
+const float perspFarPlane = 10.f;
+
 
 #endif

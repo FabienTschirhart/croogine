@@ -20,6 +20,7 @@ namespace Croogine {
         CroogineRenderer& operator=(const CroogineRenderer&) = delete;
 
         VkRenderPass getSwapChainRenderPass() const { return croogineSwapChain->getRenderPass(); }
+        float getAspectRatio() const { return croogineSwapChain->extentAspectRatio(); }
         bool isFrameInProgress() const { return isFrameStarted; }
 
         VkCommandBuffer getCurrentCommandBuffer() const { 

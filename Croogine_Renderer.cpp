@@ -32,7 +32,8 @@ namespace Croogine {
         }
         else {
             std::shared_ptr<CroogineSwapChain> oldSwapChain = std::move(croogineSwapChain);
-            croogineSwapChain = std::make_unique<CroogineSwapChain>(croogineDevice, extent, std::move(croogineSwapChain));
+            croogineSwapChain = std::make_unique<CroogineSwapChain>(croogineDevice, extent, oldSwapChain);
+
             if (!oldSwapChain->compareSwapFormat(*croogineSwapChain.get()))
                 throw std::runtime_error("Swap chain image or depth format has changed !");
         }
