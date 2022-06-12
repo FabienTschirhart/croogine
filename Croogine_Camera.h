@@ -1,0 +1,18 @@
+#pragma once
+
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/glm.hpp>
+
+namespace Croogine {
+
+	class CroogineCamera {
+	public:
+		void setOrthographicProjection(
+			float left, float right, float top, float bottom, float nearPlane, float farPlane);
+
+		void setPerspectiveProjection(
+			float fov, float aspect, float nearPlane, float farPlane);
+	};
+
+}
