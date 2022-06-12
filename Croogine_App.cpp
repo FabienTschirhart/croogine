@@ -23,12 +23,13 @@ namespace Croogine {
 
         CroogineRenderSystem renderSystem{ croogineDevice, croogineRenderer.getSwapChainRenderPass() };
         CroogineCamera camera{};
+        //camera.setViewDirection(glm::vec3(0.f), glm::vec3(0.5f, 0.f, 1.f));
+        camera.setViewTarget(glm::vec3(-1.f, -2.f, 2.f), glm::vec3(0.f, 0.f, 2.5f));
 
         while (!croogineWindow.shouldClose()) //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
         {
             float aspect = croogineRenderer.getAspectRatio();
-            
-            
+                        
             //camera.setOrthographicProjection(-aspect, aspect, orthTop, orthBottom, orthNearPlane, orthFarPlane);
             camera.setPerspectiveProjection(fov, aspect, perspNearPlane, perspFarPlane);
 
@@ -109,7 +110,7 @@ namespace Croogine {
 
         auto cube = CroogineEntity::createEntity();
         cube.model = croogineModel;
-        cube.transform.translation = { .0f, .0f, 1.5f };
+        cube.transform.translation = { .0f, .0f, 2.5f };
         cube.transform.scale = { .5f, .5f, .5f };
 
         entities.push_back(std::move(cube));

@@ -35,6 +35,7 @@ static constexpr int HEIGHT = 768;
 
 const int MAX_FRAMES_IN_FLIGHT = 2;
 
+//const VkClearColorValue backgroundColor = { 0.f, 0.f, 0.f, 1.f };
 
 /* CAMERA */
 

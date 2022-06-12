@@ -67,6 +67,8 @@ namespace Croogine {
     void CroogineRenderSystem::renderEntities(VkCommandBuffer commandBuffer, std::vector<CroogineEntity>& entities, const CroogineCamera& camera) {
         crooginePipeline->bind(commandBuffer);
 
+        auto projectionView = camera.getProjection() * camera.getView();
+
         for (auto& entity : entities) {
 
             entity.transform.rotation.y = glm::mod(entity.transform.rotation.y + 0.001f, glm::two_pi<float>());
@@ -75,7 +77,7 @@ namespace Croogine {
 
             SimplePushConstantData push{};
             push.color = entity.color;
-            push.transform = camera.getProjection() * entity.transform.mat4();
+            push.transform = projectionView * entity.transform.mat4();
 
             vkCmdPushConstants(
                 commandBuffer,
