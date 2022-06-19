@@ -38,7 +38,9 @@ namespace Croogine {
 
             auto newTime = std::chrono::high_resolution_clock::now();
             float frameDuration = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
-            currentTime = newTime;            
+            currentTime = newTime;    
+
+            //frameDuration = glm::min(frameDuration, MAX_FRAME_DURATION);
 
             cameraEntity_Controller.move(croogineWindow.getGLFWwindow(), frameDuration, cameraEntity);
             camera.setViewYXZ(cameraEntity.transform.translation, cameraEntity.transform.rotation);

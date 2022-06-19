@@ -53,10 +53,12 @@ const float PERSPECTIVE_FAR_PLANE = 10.f;
 
 /* MOVEMENT */
 
-
-
 const float MOVEMENT_SPEED = 3.0;
 const float ROTATION_SPEED = 1.5f;
+
+/* FRAME */
+
+const float MAX_FRAME_DURATION
 
 
 #endif

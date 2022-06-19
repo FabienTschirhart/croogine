@@ -1,6 +1,7 @@
 #include "Croogine_KB_Controller.h"
 
 #include <numeric>
+#include <limits>
 
 
 namespace Croogine {
@@ -19,6 +20,7 @@ namespace Croogine {
 		
 		entity.transform.rotation.x = glm::clamp(entity.transform.rotation.x, -1.5f, 1.5f);
 		entity.transform.rotation.y = glm::mod(entity.transform.rotation.y, glm::two_pi<float>());
+			
 		
 		float yaw = entity.transform.rotation.y;
 
