@@ -1,4 +1,5 @@
 #include "Croogine_App.h"
+#include "Croogine_KB_Controller.h"
 #include "Croogine_Camera.h"
 #include "Croogine_RenderSystem.h"
 
@@ -9,7 +10,9 @@
 
 #include <array>
 #include <cassert>
+#include <chrono>
 #include <stdexcept>
+#include <iostream>
 
 namespace Croogine {
 
@@ -23,19 +26,30 @@ namespace Croogine {
 
         CroogineRenderSystem renderSystem{ croogineDevice, croogineRenderer.getSwapChainRenderPass() };
         CroogineCamera camera{};
-        //camera.setViewDirection(glm::vec3(0.f), glm::vec3(0.5f, 0.f, 1.f));
-        camera.setViewTarget(glm::vec3(-1.f, -2.f, 2.f), glm::vec3(0.f, 0.f, 2.5f));
+
+        auto cameraEntity = CroogineEntity::createEntity();
+        KeyboardController cameraEntity_Controller{};
+
+        auto currentTime = std::chrono::high_resolution_clock::now();
 
         while (!croogineWindow.shouldClose()) //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
         {
-            float aspect = croogineRenderer.getAspectRatio();
-                
-            if(orthographicProjection)
-                camera.setOrthographicProjection(-aspect, aspect, orthTop, orthBottom, orthNearPlane, orthFarPlane);
-            else
-                camera.setPerspectiveProjection(fov, aspect, perspNearPlane, perspFarPlane);
-            
             glfwPollEvents(); //check all events (click, resize, close, move, etc.) and set flags accordingly
+
+            auto newTime = std::chrono::high_resolution_clock::now();
+            float frameDuration = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
+            currentTime = newTime;            
+
+            cameraEntity_Controller.move(croogineWindow.getGLFWwindow(), frameDuration, cameraEntity);
+            camera.setViewYXZ(cameraEntity.transform.translation, cameraEntity.transform.rotation);
+                
+            float aspect = croogineRenderer.getAspectRatio();
+
+            if(ORTHOGRAPHIC_PROJECTION)
+                camera.setOrthographicProjection(-aspect, aspect, ORTHOGRAPHIC_TOP, ORTHOGRAPHIC_BOTTOM, ORTHOGRAPHIC_NEAR_PLANE, ORTHOGRAPHIC_FAR_PLANE);
+            else
+                camera.setPerspectiveProjection(FOV, aspect, PERSPECTIVE_NEAR_PLANE, PERSPECTIVE_FAR_PLANE);
+            
 
             if (auto commandBuffer = croogineRenderer.beginFrame()) {
                 croogineRenderer.beginSCRenderPass(commandBuffer);

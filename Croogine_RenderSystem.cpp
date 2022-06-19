@@ -57,8 +57,8 @@ namespace Croogine {
         pipelineConfig.pipelineLayout = pipelineLayout;
         crooginePipeline = std::make_unique<CrooginePipeline>(
             croogineDevice,
-            vertexshader_file,
-            fragmentshader_file,
+            VERTEX_SHADER_FILE,
+            FRAGMENT_SHADER_FILE,
             pipelineConfig
             );
     }
@@ -71,8 +71,8 @@ namespace Croogine {
 
         for (auto& entity : entities) {
 
-            entity.transform.rotation.y = glm::mod(entity.transform.rotation.y + 0.001f, glm::two_pi<float>());
-            entity.transform.rotation.x = glm::mod(entity.transform.rotation.x + 0.0001f, glm::two_pi<float>());
+            //entity.transform.rotation.y = glm::mod(entity.transform.rotation.y + 0.001f, glm::two_pi<float>());
+            //entity.transform.rotation.x = glm::mod(entity.transform.rotation.x + 0.0001f, glm::two_pi<float>());
 
 
             SimplePushConstantData push{};

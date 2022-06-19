@@ -15,9 +15,9 @@ const int VERSION_PATCH = 0;
 const std::string ENGINE_NAME = "Croogine 3D";
 const std::string ENGINE_VERSION = "V0.1.0";
 
-const std::string vertexshader_file = "shaders/vert.spv";
-const std::string fragmentshader_file = "shaders/frag.spv";
-const std::string texture_file = "textures/Woman_Punk.jpg";
+const std::string VERTEX_SHADER_FILE = "shaders/vert.spv";
+const std::string FRAGMENT_SHADER_FILE = "shaders/frag.spv";
+const std::string TEXTURE_FILE = "textures/Woman_Punk.jpg";
 
 const std::string MODEL_PATH = "models/cornell_box_Custom.obj";
 const std::string TEXTURE_PATH = "textures/Cornell_Box_Lightmap_2048.png";
@@ -39,17 +39,24 @@ const int MAX_FRAMES_IN_FLIGHT = 2;
 
 /* CAMERA */
 
-const bool orthographicProjection = false;
+const bool ORTHOGRAPHIC_PROJECTION = false;
 
-const float fov = glm::radians(60.f); //field of view
+const float FOV = glm::radians(50.f); //field of view
 
-const float orthTop = -1;
-const float orthBottom = 1;
+const float ORTHOGRAPHIC_TOP = -1;
+const float ORTHOGRAPHIC_BOTTOM = 1;
 
-const float orthNearPlane = -1;
-const float orthFarPlane = 1;
-const float perspNearPlane = 0.1f;
-const float perspFarPlane = 10.f;
+const float ORTHOGRAPHIC_NEAR_PLANE = -1;
+const float ORTHOGRAPHIC_FAR_PLANE = 1;
+const float PERSPECTIVE_NEAR_PLANE = 0.1f;
+const float PERSPECTIVE_FAR_PLANE = 10.f;
+
+/* MOVEMENT */
+
+
+
+const float MOVEMENT_SPEED = 3.0;
+const float ROTATION_SPEED = 1.5f;
 
 
 #endif
