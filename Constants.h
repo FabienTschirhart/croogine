@@ -39,6 +39,8 @@ const int MAX_FRAMES_IN_FLIGHT = 2;
 
 /* CAMERA */
 
+const bool orthographicProjection = false;
+
 const float fov = glm::radians(60.f); //field of view
 
 const float orthTop = -1;

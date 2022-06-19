@@ -29,10 +29,11 @@ namespace Croogine {
         while (!croogineWindow.shouldClose()) //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
         {
             float aspect = croogineRenderer.getAspectRatio();
-                        
-            //camera.setOrthographicProjection(-aspect, aspect, orthTop, orthBottom, orthNearPlane, orthFarPlane);
-            camera.setPerspectiveProjection(fov, aspect, perspNearPlane, perspFarPlane);
-
+                
+            if(orthographicProjection)
+                camera.setOrthographicProjection(-aspect, aspect, orthTop, orthBottom, orthNearPlane, orthFarPlane);
+            else
+                camera.setPerspectiveProjection(fov, aspect, perspNearPlane, perspFarPlane);
             
             glfwPollEvents(); //check all events (click, resize, close, move, etc.) and set flags accordingly
 
