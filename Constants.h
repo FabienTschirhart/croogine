@@ -58,7 +58,7 @@ const float ROTATION_SPEED = 1.5f;
 
 /* FRAME */
 
-const float MAX_FRAME_DURATION
+const float MAX_FRAME_DURATION = 0.01f;
 
 
 #endif
