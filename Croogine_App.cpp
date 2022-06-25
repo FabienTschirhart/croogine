@@ -65,7 +65,11 @@ namespace Croogine {
 	}
 
     std::unique_ptr<CroogineModel> createCubePrimitive(CroogineDevice& device, glm::vec3 offset) {
-        std::vector<CroogineModel::Vertex> vertices{
+
+        CroogineModel::Modeler model{};
+        model.vertices =
+
+        model.vertices = {
 
             // left face (white)
             {{-.5f, -.5f, -.5f}, {.9f, .9f, .9f}},
@@ -116,10 +120,10 @@ namespace Croogine {
             {{.5f, .5f, -0.5f}, {.1f, .8f, .1f}},
 
         };
-        for (auto& v : vertices) {
+        for (auto& v : model.vertices) {
             v.position += offset;
         }
-        return std::make_unique<CroogineModel>(device, vertices);
+        return std::make_unique<CroogineModel>(device, model);
     }
 
     void CroogineApp::loadEntities() {

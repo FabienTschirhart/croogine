@@ -22,8 +22,13 @@ namespace Croogine {
 
 		};
 
+		struct Modeler {
+			std::vector<Vertex> vertices{};
+			std::vector<uint32_t> indices{};
+		};
 
-		CroogineModel(CroogineDevice& device, const std::vector<Vertex>& vertices);
+
+		CroogineModel(CroogineDevice& device, const CroogineModel::Modeler &builder);
 		~CroogineModel();
 
 		CroogineModel(const CroogineModel &) = delete;
@@ -35,10 +40,17 @@ namespace Croogine {
 	private :
 
 		void createVertexBuffers(const std::vector<Vertex>& vertices);
+		void createIndexBuffers(const std::vector<uint32_t>& indices);
+
 
 		CroogineDevice &croogineDevice;
 		VkBuffer vertexBuffer;
 		VkDeviceMemory vertexBufferMemory;
 		uint32_t vertexCount;
+
+		bool hasIndexBuffer = false;
+		VkBuffer indexBuffer;
+		VkDeviceMemory indexBufferMemory;
+		uint32_t indexCount;
 	};
 }
