@@ -19,7 +19,11 @@ const std::string VERTEX_SHADER_FILE = "shaders/vert.spv";
 const std::string FRAGMENT_SHADER_FILE = "shaders/frag.spv";
 const std::string TEXTURE_FILE = "textures/Woman_Punk.jpg";
 
-const std::string MODEL_PATH = "models/cornell_box_Custom.obj";
+const std::string MODEL_CORNELL_BOX_PATH = "models/cornell_box_Custom.obj";
+const std::string MODEL_COLORED_CUBE_PATH = "models/colored_cube.obj";
+const std::string MODEL_CUBE_PATH = "models/cube.obj";
+const std::string MODEL_FLAT_VASE = "models/flat_vase.obj";
+const std::string MODEL_SMOOTH_VASE = "models/smooth_vase.obj";
 const std::string TEXTURE_PATH = "textures/Cornell_Box_Lightmap_2048.png";
 //"textures/Cornell_Box_Flat.png"
 //"textures/Cornell_Box_BaseColor.png"

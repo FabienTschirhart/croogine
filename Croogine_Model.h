@@ -6,6 +6,8 @@
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
 
+#include <memory>
+
 
 namespace Croogine {
 
@@ -14,8 +16,10 @@ namespace Croogine {
 	public:
 
 		struct Vertex {
-			glm::vec3 position;
-			glm::vec3 color;
+			glm::vec3 position{};
+			glm::vec3 color{};
+			glm::vec3 normal{};
+			glm::vec2 uv{};
 
 			static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
 			static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
@@ -25,6 +29,8 @@ namespace Croogine {
 		struct Modeler {
 			std::vector<Vertex> vertices{};
 			std::vector<uint32_t> indices{};
+
+			void LoadModel(const std::string& filepath);
 		};
 
 
@@ -33,6 +39,8 @@ namespace Croogine {
 
 		CroogineModel(const CroogineModel &) = delete;
 		CroogineModel &operator=(const CroogineModel &) = delete;
+
+		static std::unique_ptr<CroogineModel> createModel(CroogineDevice& device, const std::string& filepath);
 
 		void bind(VkCommandBuffer commandBuffer);
 		void draw(VkCommandBuffer commandBuffer);

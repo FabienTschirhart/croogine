@@ -4,6 +4,7 @@
 
 //std
 #include <vector>
+#include <iostream>
 
 //lib
 #define TINYOBJLOADER_IMPLEMENTATION
@@ -36,6 +37,17 @@ namespace Croogine {
 			vkFreeMemory(croogineDevice.getDevice(), indexBufferMemory, nullptr);
 		}
 	}
+
+	std::unique_ptr<CroogineModel> CroogineModel::createModel(CroogineDevice& device, const std::string& filepath)
+	{
+		Modeler modeler{};
+		modeler.LoadModel(filepath);
+
+		std::cout << "Vertex count : " << modeler.vertices.size() << "\n";
+		
+		return std::make_unique<CroogineModel>(device, modeler);
+	}
+
 
 	void CroogineModel::createVertexBuffers(const std::vector<Vertex>& vertices) {
 		vertexCount = static_cast<uint32_t>(vertices.size());
@@ -137,4 +149,64 @@ namespace Croogine {
 		};  //{location, binding, format, offset}
 	}
 
+	void CroogineModel::Modeler::LoadModel(const std::string& filepath) {
+
+		tinyobj::attrib_t attribute; //position, color, norma & uv
+		std::vector<tinyobj::shape_t> shapes; //index value for each vertices (attribute) of each polygon
+		std::vector<tinyobj::material_t> materials; //material index value for each shape
+
+		std::string warning, error;
+
+		if (!tinyobj::LoadObj(&attribute, &shapes, &materials, &warning, &error, filepath.c_str()))
+			throw std::runtime_error(warning + error);
+
+		vertices.clear();
+		indices.clear();
+
+		for (const auto& shape : shapes)
+		{
+			for (const auto& index : shape.mesh.indices)
+			{
+				Vertex vertex{};
+
+				if (index.vertex_index >= 0) { //check if there is position information for this vertex
+					vertex.position = {
+						attribute.vertices[3 * index.vertex_index + 0],
+						attribute.vertices[3 * index.vertex_index + 1],
+						attribute.vertices[3 * index.vertex_index + 2],
+					};
+
+					auto colorIndex = 3 * index.vertex_index + 2;
+
+					if (colorIndex < attribute.colors.size()) //check if a color information is next to the position
+							vertex.color = {
+						attribute.colors[colorIndex - 2],
+						attribute.colors[colorIndex - 1],
+						attribute.colors[colorIndex - 0],
+						};
+					else //otherwise, generate a default grey color value
+						vertex.color = { .5f, .5f, .5f };
+				}
+				else
+					continue; //if there is no position information, go directly to the next vertex without pushing this one to the vertex buffer
+				
+				if (index.normal_index >= 0) //check if there is a normal associated to this vertex
+					vertex.normal = {
+						attribute.normals[3 * index.normal_index + 0],
+						attribute.normals[3 * index.normal_index + 1],
+						attribute.normals[3 * index.normal_index + 2],
+					};
+
+				if (index.normal_index >= 0) //check if there is a uv associated to this vertex
+					vertex.uv = {
+						attribute.texcoords[2 * index.texcoord_index + 0],
+						attribute.texcoords[2 * index.texcoord_index + 1],
+					};
+
+				vertices.push_back(vertex);
+			}
+		}
+	}	
+		
+	
 }
