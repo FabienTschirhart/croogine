@@ -156,10 +156,15 @@ namespace Croogine {
 	}
 
 	std::vector<VkVertexInputAttributeDescription> CroogineModel::Vertex::getAttributeDescriptions() {
-		return{ 
-			{0,0,VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex,position)}, 
-			{1,0,VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, color)} 
-		};  //{location, binding, format, offset}
+
+		std::vector<VkVertexInputAttributeDescription> attributeDescriptions{};
+
+		attributeDescriptions.push_back({ 0,0,VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex,position) });
+		attributeDescriptions.push_back({ 1,0,VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex,color) });
+		attributeDescriptions.push_back({ 2,0,VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex,normal) });
+		attributeDescriptions.push_back({ 3,0,VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex,uv) });
+
+		return attributeDescriptions;
 	}
 
 	void CroogineModel::Modeler::LoadModel(const std::string& filepath, bool gltf) {
@@ -204,16 +209,11 @@ namespace Croogine {
 						attribute.vertices[3 * index.vertex_index + 2],
 					};
 
-					auto colorIndex = 3 * index.vertex_index + 2;
-
-					if (colorIndex < attribute.colors.size()) //check if a color information is next to the position
-							vertex.color = {
-						attribute.colors[colorIndex - 2],
-						attribute.colors[colorIndex - 1],
-						attribute.colors[colorIndex - 0],
-						};
-					else //otherwise, generate a default grey color value
-						vertex.color = { .5f, .5f, .5f };
+					vertex.color = {
+						attribute.colors[3 * index.vertex_index + 0],
+						attribute.colors[3 * index.vertex_index + 1],
+						attribute.colors[3 * index.vertex_index + 2],
+					};
 				}
 				else
 					continue; //if there is no position information, go directly to the next vertex without pushing this one to the vertex buffer
