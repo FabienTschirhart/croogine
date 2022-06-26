@@ -24,6 +24,14 @@ namespace Croogine {
 			static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
 			static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
 
+			bool operator==(const Vertex& other) const {
+				return position == 
+					other.position && color == other.color 
+					&& 
+					normal == other.normal 
+					&& 
+					uv == other.uv;
+			}
 		};
 
 		struct Modeler {
@@ -40,7 +48,10 @@ namespace Croogine {
 		CroogineModel(const CroogineModel &) = delete;
 		CroogineModel &operator=(const CroogineModel &) = delete;
 
-		static std::unique_ptr<CroogineModel> createModel(CroogineDevice& device, const std::string& filepath, bool gltf = false);
+		static std::unique_ptr<CroogineModel> createModel(
+			CroogineDevice& device, 
+			const std::string& filepath, 
+			bool gltf = false);
 
 		void bind(VkCommandBuffer commandBuffer);
 		void draw(VkCommandBuffer commandBuffer);

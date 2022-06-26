@@ -5,8 +5,10 @@
 //std
 #include <iostream>
 #include <fstream>
+#include <functional>
 
 namespace CroogineUtils {
+
 
         std::vector<char> static readFile(const std::string& filepath) {
 
@@ -25,6 +27,14 @@ namespace CroogineUtils {
             file.close();
             return buffer;
         }
+
+        // this piece of code comes from: https://stackoverflow.com/a/57595105
+        // I honestly have no idea of how it works.
+        template <typename T, typename... Rest>
+        void hashCombine(std::size_t& seed, const T& v, const Rest&... rest) {
+            seed ^= std::hash<T>{}(v)+0x9e3779b9 + (seed << 6) + (seed >> 2);
+            (hashCombine(seed, rest), ...);
+        };
 }
 
 #endif

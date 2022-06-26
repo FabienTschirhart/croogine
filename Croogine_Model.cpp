@@ -1,10 +1,13 @@
 #define _CRT_SECURE_NO_WARNINGS
+#define GLM_ENABLE_EXPERIMENTAL
 
 #include "Croogine_Model.h"
+#include "Utils.h"
 
 //std
 #include <vector>
 #include <iostream>
+#include <unordered_map>
 
 //lib
 #define TINYOBJLOADER_IMPLEMENTATION
@@ -15,9 +18,19 @@
 
 #include <tiny_obj_loader.h>
 #include <tiny_gltf.h>
+#include <glm/gtx/hash.hpp>
 
-using namespace tinygltf;
 
+namespace std {
+	template <>
+	struct hash<Croogine::CroogineModel::Vertex> {
+		size_t operator()(Croogine::CroogineModel::Vertex const& vertex) const {
+			size_t seed = 0;
+			CroogineUtils::hashCombine(seed, vertex.position, vertex.color, vertex.normal, vertex.uv);
+			return seed;
+		}
+	};
+}
 
 namespace Croogine {
 
@@ -155,8 +168,8 @@ namespace Croogine {
 
 		if (gltf)
 		{
-			Model model;
-			TinyGLTF loader;
+			tinygltf::Model model;
+			tinygltf::TinyGLTF loader;
 
 			if (loader.LoadASCIIFromFile(&model, &error, &warning, filepath.c_str()))
 				throw std::runtime_error(warning + error);
@@ -175,6 +188,8 @@ namespace Croogine {
 
 		vertices.clear();
 		indices.clear();
+
+		std::unordered_map<Vertex, uint32_t> uniqueVertices{};
 
 		for (const auto& shape : shapes)
 		{
@@ -216,7 +231,12 @@ namespace Croogine {
 						attribute.texcoords[2 * index.texcoord_index + 1],
 					};
 
-				vertices.push_back(vertex);
+				if (uniqueVertices.count(vertex) == 0)
+				{
+					uniqueVertices[vertex] = static_cast<uint32_t>(vertices.size());
+					vertices.push_back(vertex);
+				}
+				indices.push_back(uniqueVertices[vertex]);
 			}
 		}
 	}

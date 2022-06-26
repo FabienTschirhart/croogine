@@ -12,7 +12,6 @@
 #include <cassert>
 #include <chrono>
 #include <stdexcept>
-#include <iostream>
 
 namespace Croogine {
 
@@ -117,13 +116,13 @@ namespace Croogine {
     void CroogineApp::loadEntities() {
         
         //std::shared_ptr<CroogineModel> croogineModel = createCubePrimitive(croogineDevice, { .0f, .0f, .0f });
-        std::shared_ptr<CroogineModel> croogineModel = CroogineModel::createModel(croogineDevice, MODEL_COLORED_CUBE_PATH, false);
+        std::shared_ptr<CroogineModel> croogineModel = CroogineModel::createModel(croogineDevice, MODEL_SMOOTH_VASE, false);
 
-        auto cube = CroogineEntity::createEntity();
-        cube.model = croogineModel;
-        cube.transform.translation = { .0f, .0f, 2.5f };
-        cube.transform.scale = { .5f, .5f, .5f };
+        auto element = CroogineEntity::createEntity();
+        element.model = croogineModel;
+        element.transform.translation = { .0f, .0f, 2.5f };
+        element.transform.scale = { 1.f, 1.f, 1.f };
 
-        entities.push_back(std::move(cube));
+        entities.push_back(std::move(element));
     }
 }
