@@ -117,7 +117,7 @@ namespace Croogine {
     void CroogineApp::loadEntities() {
         
         //std::shared_ptr<CroogineModel> croogineModel = createCubePrimitive(croogineDevice, { .0f, .0f, .0f });
-        std::shared_ptr<CroogineModel> croogineModel = CroogineModel::createModel(croogineDevice, MODEL_COLORED_CUBE_PATH);
+        std::shared_ptr<CroogineModel> croogineModel = CroogineModel::createModel(croogineDevice, MODEL_COLORED_CUBE_PATH, false);
 
         auto cube = CroogineEntity::createEntity();
         cube.model = croogineModel;

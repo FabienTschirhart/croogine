@@ -38,10 +38,10 @@ namespace Croogine {
 		}
 	}
 
-	std::unique_ptr<CroogineModel> CroogineModel::createModel(CroogineDevice& device, const std::string& filepath)
+	std::unique_ptr<CroogineModel> CroogineModel::createModel(CroogineDevice& device, const std::string& filepath, bool gltf)
 	{
 		Modeler modeler{};
-		modeler.LoadModel(filepath);
+		modeler.LoadModel(filepath, gltf);
 
 		std::cout << "Vertex count : " << modeler.vertices.size() << "\n";
 		
@@ -149,13 +149,26 @@ namespace Croogine {
 		};  //{location, binding, format, offset}
 	}
 
-	void CroogineModel::Modeler::LoadModel(const std::string& filepath) {
-
-		tinyobj::attrib_t attribute; //position, color, norma & uv
-		std::vector<tinyobj::shape_t> shapes; //index value for each vertices (attribute) of each polygon
-		std::vector<tinyobj::material_t> materials; //material index value for each shape
+	void CroogineModel::Modeler::LoadModel(const std::string& filepath, bool gltf) {
 
 		std::string warning, error;
+
+		if (gltf)
+		{
+			Model model;
+			TinyGLTF loader;
+
+			if (loader.LoadASCIIFromFile(&model, &error, &warning, filepath.c_str()))
+				throw std::runtime_error(warning + error);
+
+			return;
+		}
+
+	
+		tinyobj::attrib_t attribute; //position, color, norma & uv
+
+		std::vector<tinyobj::shape_t> shapes; //index value for each vertices (attribute) of each polygon
+		std::vector<tinyobj::material_t> materials; //material index value for each shape
 
 		if (!tinyobj::LoadObj(&attribute, &shapes, &materials, &warning, &error, filepath.c_str()))
 			throw std::runtime_error(warning + error);
@@ -206,7 +219,7 @@ namespace Croogine {
 				vertices.push_back(vertex);
 			}
 		}
-	}	
-		
-	
+	}
+
+
 }

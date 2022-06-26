@@ -30,7 +30,7 @@ namespace Croogine {
 			std::vector<Vertex> vertices{};
 			std::vector<uint32_t> indices{};
 
-			void LoadModel(const std::string& filepath);
+			void LoadModel(const std::string& filepath, bool gltf = false);
 		};
 
 
@@ -40,7 +40,7 @@ namespace Croogine {
 		CroogineModel(const CroogineModel &) = delete;
 		CroogineModel &operator=(const CroogineModel &) = delete;
 
-		static std::unique_ptr<CroogineModel> createModel(CroogineDevice& device, const std::string& filepath);
+		static std::unique_ptr<CroogineModel> createModel(CroogineDevice& device, const std::string& filepath, bool gltf = false);
 
 		void bind(VkCommandBuffer commandBuffer);
 		void draw(VkCommandBuffer commandBuffer);
