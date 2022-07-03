@@ -51,7 +51,7 @@ namespace Croogine {
             else
                 camera.setPerspectiveProjection(FOV, aspect, PERSPECTIVE_NEAR_PLANE, PERSPECTIVE_FAR_PLANE);
             
-            entities[0].transform.rotation += glm::vec3{ 0.f, 0.00005f , 0.f };
+            //entities[0].transform.rotation += glm::vec3{ 0.f, 0.00005f , 0.f };
 
             if (auto commandBuffer = croogineRenderer.beginFrame()) {
                 croogineRenderer.beginSCRenderPass(commandBuffer);
