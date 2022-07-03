@@ -10,10 +10,10 @@
 const int VERSION_VARIANT = 0;
 const int VERSION_MAJOR = 2;
 const int VERSION_MINOR = 3;
-const int VERSION_PATCH = 0;
+const int VERSION_PATCH = 1;
 
 const std::string ENGINE_NAME = "Croogine 3D";
-const std::string ENGINE_VERSION = " V0.2.3.0";
+const std::string ENGINE_VERSION = " V0.2.3.1";
 
 const std::string VERTEX_SHADER_FILE = "shaders/vert.spv";
 const std::string FRAGMENT_SHADER_FILE = "shaders/frag.spv";
