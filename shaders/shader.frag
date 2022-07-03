@@ -6,8 +6,9 @@ layout (location = 0) out vec4 outColor;
 
 layout(push_constant) uniform Pushdata{ 
 		mat4 transform;
-		mat4 modelMatrix;
+		mat4 normalMatrix;
 	} pushdata;
+
 
 void main() {
     outColor = vec4(color, 1.0);

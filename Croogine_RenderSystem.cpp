@@ -14,8 +14,8 @@ namespace Croogine {
 
     struct SimplePushConstantData {
         glm::mat4 transform{ 1.f };
-        glm::mat4 modelMatrix{ 1.f };
-        alignas(16) glm::vec3 color;
+        glm::mat4 normalMatrix{ 1.f };
+        //alignas(16) glm::vec3 color;
     };
 
     CroogineRenderSystem::CroogineRenderSystem(CroogineDevice& device, VkRenderPass renderPass) : croogineDevice{ device } {
@@ -73,9 +73,9 @@ namespace Croogine {
         for (auto& entity : entities) {
 
             SimplePushConstantData push{};
-            auto modelMatrix = entity.transform.mat4();
-            push.transform = projectionView * modelMatrix;
-            push.modelMatrix = modelMatrix;
+            auto normalMatrix = entity.transform.mat4();
+            push.transform = projectionView * normalMatrix;
+            push.normalMatrix = entity.transform.normalMatrix();
 
             vkCmdPushConstants(
                 commandBuffer,

@@ -10,7 +10,7 @@ layout(location = 0) out vec3 fragColor;
 
 layout(push_constant) uniform Pushdata{ 
 		mat4 transform;
-		mat4 modelMatrix;
+		mat4 normalMatrix;
 	} pushdata;
 
 
@@ -20,11 +20,7 @@ const float AMBIENT = 0.02;
 void main() {
 	gl_Position = pushdata.transform * vec4(position, 1.0);
 
-
-	mat3 normalMatrix = transpose(inverse(mat3(pushdata.modelMatrix)));
-	vec3 normalWorldSpace = normalize(normalMatrix *vec4(normal, 0.0).xyz);
-
-
+	vec3 normalWorldSpace = normalize(mat3(pushdata.normalMatrix) *vec4(normal, 0.0).xyz);
 
 	float lightIntensity = AMBIENT + max(dot(normalWorldSpace, DIRECTION_TO_LIGHT),0);
 
