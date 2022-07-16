@@ -1,7 +1,6 @@
 #include "Croogine_App.h"
 #include "Croogine_KB_Controller.h"
 #include "Croogine_Camera.h"
-#include "Croogine_RenderSystem.h"
 #include "Croogine_Buffer.h"
 
 #define GLM_FORCE_RADIANS
@@ -87,6 +86,20 @@ namespace Croogine {
         vkDeviceWaitIdle(croogineDevice.getDevice());
 	}
 
+    void CroogineApp::loadEntities() {
+        
+        //std::shared_ptr<CroogineModel> croogineModel = createCubePrimitive(croogineDevice, { .0f, .0f, .0f });
+        std::shared_ptr<CroogineModel> croogineModel = CroogineModel::createModel(croogineDevice, MODEL_CORNELL_BOX_PATH, false);
+
+        auto element = CroogineEntity::createEntity();
+        element.model = croogineModel;
+        element.transform.translation = { 0.f, 1.75f, 7.f };
+        element.transform.scale = { 1.f, 1.f, 1.f };
+        element.transform.rotation = { 1.5708f, 0.f, 0.f };
+
+        entities.push_back(std::move(element));
+    }
+
     void CroogineApp::update(Frame& frame, CroogineBuffer& globalUniformBuffer)
     {
         GlobalUniformBufferObject ubo{};
@@ -100,27 +113,11 @@ namespace Croogine {
 
     }
 
-    void CroogineApp::render(Frame& frame, CroogineRenderSystem &renderSystem)
+    void CroogineApp::render(Frame& frame, CroogineRenderSystem& renderSystem)
     {
         croogineRenderer.beginSCRenderPass(frame.commandBuffer);
         renderSystem.renderEntities(frame, entities);
         croogineRenderer.endSCRenderPass(frame.commandBuffer);
         croogineRenderer.endFrame();
-    }
-
-
-
-    void CroogineApp::loadEntities() {
-        
-        //std::shared_ptr<CroogineModel> croogineModel = createCubePrimitive(croogineDevice, { .0f, .0f, .0f });
-        std::shared_ptr<CroogineModel> croogineModel = CroogineModel::createModel(croogineDevice, MODEL_CORNELL_BOX_PATH, false);
-
-        auto element = CroogineEntity::createEntity();
-        element.model = croogineModel;
-        element.transform.translation = { 0.f, 1.75f, 7.f };
-        element.transform.scale = { 1.f, 1.f, 1.f };
-        element.transform.rotation = { 1.5708f, 0.f, 0.f };
-
-        entities.push_back(std::move(element));
     }
 }
