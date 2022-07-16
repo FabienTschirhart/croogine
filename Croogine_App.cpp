@@ -73,6 +73,12 @@ namespace Croogine {
 
             if (auto commandBuffer = croogineRenderer.beginFrame()) {
                 int frameIndex = croogineRenderer.getFrameIndex();
+                Frame frame{
+                    frameIndex,
+                    frameDuration,
+                    commandBuffer,
+                    camera
+                };
                 
                 //move to update()
                 GlobalUniformBufferObject ubo{};
@@ -82,7 +88,7 @@ namespace Croogine {
 
                 //move to render()
                 croogineRenderer.beginSCRenderPass(commandBuffer);
-                renderSystem.renderEntities(commandBuffer, entities, camera);
+                renderSystem.renderEntities(frame, entities);
                 croogineRenderer.endSCRenderPass(commandBuffer);
                 croogineRenderer.endFrame();
             }

@@ -4,6 +4,7 @@
 #include "Croogine_Pipeline.h"
 #include "Croogine_Device.h"
 #include "Croogine_Entity.h"
+#include "Croogine_Frame.h"
 
 #include <memory>
 #include <vector>
@@ -19,7 +20,10 @@ namespace Croogine {
         CroogineRenderSystem(const CroogineRenderSystem&) = delete;
         CroogineRenderSystem& operator=(const CroogineRenderSystem&) = delete;
 
-        void renderEntities(VkCommandBuffer commandBuffer, std::vector<CroogineEntity> &entities, const CroogineCamera &camera);
+        void renderEntities(
+            Frame &frame, 
+            std::vector<CroogineEntity> &entities 
+            );
 
     private:
 

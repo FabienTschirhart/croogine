@@ -64,10 +64,10 @@ namespace Croogine {
     }
 
 
-    void CroogineRenderSystem::renderEntities(VkCommandBuffer commandBuffer, std::vector<CroogineEntity>& entities, const CroogineCamera& camera) {
-        crooginePipeline->bind(commandBuffer);
+    void CroogineRenderSystem::renderEntities(Frame &frame, std::vector<CroogineEntity>& entities) {
+        crooginePipeline->bind(frame.commandBuffer);
 
-        auto projectionView = camera.getProjection() * camera.getView();
+        auto projectionView = frame.camera.getProjection() * frame.camera.getView();
 
         for (auto& entity : entities) {
 
@@ -77,15 +77,15 @@ namespace Croogine {
             push.normalMatrix = entity.transform.normalMatrix();
 
             vkCmdPushConstants(
-                commandBuffer,
+                frame.commandBuffer,
                 pipelineLayout,
                 VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
                 0,
                 sizeof(SimplePushConstantData),
                 &push);
 
-            entity.model->bind(commandBuffer);
-            entity.model->draw(commandBuffer);
+            entity.model->bind(frame.commandBuffer);
+            entity.model->draw(frame.commandBuffer);
         }
     }
 
