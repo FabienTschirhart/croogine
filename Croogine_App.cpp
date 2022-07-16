@@ -29,16 +29,17 @@ namespace Croogine {
 
 	void CroogineApp::run() {
 
-        CroogineBuffer globalUBO{
-            croogineDevice,
-            sizeof(GlobalUniformBufferObject),
-            CroogineSwapChain::MAX_FRAMES_IN_FLIGHT,
-            VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
-            croogineDevice.properties.limits.minUniformBufferOffsetAlignment,
-        };
-
-        globalUBO.map();
+        std::vector<std::unique_ptr<CroogineBuffer>> uboBuffers(CroogineSwapChain::MAX_FRAMES_IN_FLIGHT);
+        for (int i = 0; i < uboBuffers.size(); i++)
+        {
+            uboBuffers[i] = std::make_unique<CroogineBuffer>(
+                croogineDevice,
+                sizeof(GlobalUniformBufferObject),
+                1,
+                VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+                VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
+            uboBuffers[i]->map();
+        }
 
         CroogineRenderSystem renderSystem{ croogineDevice, croogineRenderer.getSwapChainRenderPass() };
         CroogineCamera camera{};
@@ -77,7 +78,7 @@ namespace Croogine {
                     camera
                 };
 
-                update(frame, globalUBO);            
+                update(frame, uboBuffers);            
 
                 render(frame, renderSystem);
             }
@@ -100,14 +101,13 @@ namespace Croogine {
         entities.push_back(std::move(element));
     }
 
-    void CroogineApp::update(Frame& frame, CroogineBuffer& globalUniformBuffer)
+    void CroogineApp::update(Frame& frame, std::vector<std::unique_ptr<CroogineBuffer>>& UniformBufferObject)
     {
         GlobalUniformBufferObject ubo{};
 
-
         ubo.projectionView = frame.camera.getProjection() * frame.camera.getView();
-        globalUniformBuffer.writeToIndex(&ubo, frame.frameIndex);
-        globalUniformBuffer.flushIndex(frame.frameIndex);
+        UniformBufferObject[frame.frameIndex]->writeToBuffer(&ubo);
+        UniformBufferObject[frame.frameIndex]->flush();
 
         //entities[0].transform.rotation += glm::vec3{ 0.f, 0.00005f , 0.f };
 

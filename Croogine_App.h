@@ -27,7 +27,7 @@ namespace Croogine {
     private:
 
         void loadEntities();
-        void update(Frame& frame, CroogineBuffer& globalUniformBuffer);
+        void update(Frame& frame, std::vector<std::unique_ptr<CroogineBuffer>>& UniformBufferObject);
         void render(Frame& frame, CroogineRenderSystem& renderSystem);
 
         CroogineWindow croogineWindow{ WIDTH, HEIGHT, ENGINE_NAME + ENGINE_VERSION};
