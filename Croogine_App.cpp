@@ -2,6 +2,7 @@
 #include "Croogine_KB_Controller.h"
 #include "Croogine_Camera.h"
 #include "Croogine_RenderSystem.h"
+#include "Croogine_Buffer.h"
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -15,6 +16,12 @@
 
 namespace Croogine {
 
+    struct GlobalUniformBufferObject {
+        glm::mat4 projectionView{ 1.f };
+        glm::vec3 lightDirection = glm::normalize(glm::vec3{1.f, -3.f, -1.f});
+
+    };
+
     CroogineApp::CroogineApp() {
         loadEntities();
     }
@@ -22,6 +29,17 @@ namespace Croogine {
     CroogineApp::~CroogineApp() {}
 
 	void CroogineApp::run() {
+
+        CroogineBuffer globalUBO{
+            croogineDevice,
+            sizeof(GlobalUniformBufferObject),
+            CroogineSwapChain::MAX_FRAMES_IN_FLIGHT,
+            VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
+            croogineDevice.properties.limits.minUniformBufferOffsetAlignment,
+        };
+
+        globalUBO.map();
 
         CroogineRenderSystem renderSystem{ croogineDevice, croogineRenderer.getSwapChainRenderPass() };
         CroogineCamera camera{};
@@ -54,6 +72,15 @@ namespace Croogine {
             //entities[0].transform.rotation += glm::vec3{ 0.f, 0.00005f , 0.f };
 
             if (auto commandBuffer = croogineRenderer.beginFrame()) {
+                int frameIndex = croogineRenderer.getFrameIndex();
+                
+                //move to update()
+                GlobalUniformBufferObject ubo{};
+                ubo.projectionView = camera.getProjection() * camera.getView();
+                globalUBO.writeToIndex(&ubo, frameIndex);
+                globalUBO.flushIndex(frameIndex);
+
+                //move to render()
                 croogineRenderer.beginSCRenderPass(commandBuffer);
                 renderSystem.renderEntities(commandBuffer, entities, camera);
                 croogineRenderer.endSCRenderPass(commandBuffer);
