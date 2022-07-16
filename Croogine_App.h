@@ -5,6 +5,8 @@
 #include "Croogine_Device.h"
 #include "Croogine_Entity.h"
 #include "Croogine_Renderer.h"
+#include "Croogine_RenderSystem.h"
+#include "Croogine_Frame.h"
 
 #include <memory>
 #include <vector>
@@ -22,10 +24,11 @@ namespace Croogine {
 
         void run();
 
-
     private:
 
         void loadEntities();
+        void update(Frame& frame, CroogineBuffer& globalUniformBuffer);
+        void render(Frame& frame, CroogineRenderSystem& renderSystem);
 
         CroogineWindow croogineWindow{ WIDTH, HEIGHT, ENGINE_NAME + ENGINE_VERSION};
         CroogineDevice croogineDevice{ croogineWindow };

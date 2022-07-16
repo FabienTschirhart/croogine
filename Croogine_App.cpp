@@ -69,33 +69,46 @@ namespace Croogine {
             else
                 camera.setPerspectiveProjection(FOV, aspect, PERSPECTIVE_NEAR_PLANE, PERSPECTIVE_FAR_PLANE);
             
-            //entities[0].transform.rotation += glm::vec3{ 0.f, 0.00005f , 0.f };
-
             if (auto commandBuffer = croogineRenderer.beginFrame()) {
-                int frameIndex = croogineRenderer.getFrameIndex();
+
                 Frame frame{
-                    frameIndex,
+                    croogineRenderer.getFrameIndex(),
                     frameDuration,
                     commandBuffer,
                     camera
                 };
-                
-                //move to update()
-                GlobalUniformBufferObject ubo{};
-                ubo.projectionView = camera.getProjection() * camera.getView();
-                globalUBO.writeToIndex(&ubo, frameIndex);
-                globalUBO.flushIndex(frameIndex);
 
-                //move to render()
-                croogineRenderer.beginSCRenderPass(commandBuffer);
-                renderSystem.renderEntities(frame, entities);
-                croogineRenderer.endSCRenderPass(commandBuffer);
-                croogineRenderer.endFrame();
+                update(frame, globalUBO);            
+
+                render(frame, renderSystem);
             }
         }
 
         vkDeviceWaitIdle(croogineDevice.getDevice());
 	}
+
+    void CroogineApp::update(Frame& frame, CroogineBuffer& globalUniformBuffer)
+    {
+        GlobalUniformBufferObject ubo{};
+
+
+        ubo.projectionView = frame.camera.getProjection() * frame.camera.getView();
+        globalUniformBuffer.writeToIndex(&ubo, frame.frameIndex);
+        globalUniformBuffer.flushIndex(frame.frameIndex);
+
+        //entities[0].transform.rotation += glm::vec3{ 0.f, 0.00005f , 0.f };
+
+    }
+
+    void CroogineApp::render(Frame& frame, CroogineRenderSystem &renderSystem)
+    {
+        croogineRenderer.beginSCRenderPass(frame.commandBuffer);
+        renderSystem.renderEntities(frame, entities);
+        croogineRenderer.endSCRenderPass(frame.commandBuffer);
+        croogineRenderer.endFrame();
+    }
+
+
 
     void CroogineApp::loadEntities() {
         
