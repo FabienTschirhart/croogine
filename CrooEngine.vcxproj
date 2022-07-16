@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Croogine_Buffer.cpp" />
     <ClCompile Include="Croogine_Entity.cpp" />
     <ClCompile Include="Croogine_KB_Controller.cpp" />
     <ClCompile Include="Croogine_App.cpp" />
@@ -171,6 +172,7 @@
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Croogine_App.h" />
+    <ClInclude Include="Croogine_Buffer.h" />
     <ClInclude Include="Croogine_Camera.h" />
     <ClInclude Include="Croogine_Device.h" />
     <ClInclude Include="Croogine_Entity.h" />

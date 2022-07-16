@@ -15,7 +15,6 @@ namespace Croogine {
     struct SimplePushConstantData {
         glm::mat4 transform{ 1.f };
         glm::mat4 normalMatrix{ 1.f };
-        //alignas(16) glm::vec3 color;
     };
 
     CroogineRenderSystem::CroogineRenderSystem(CroogineDevice& device, VkRenderPass renderPass) : croogineDevice{ device } {

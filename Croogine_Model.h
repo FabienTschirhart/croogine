@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Croogine_Device.h"
+#include "Croogine_Buffer.h"
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -63,13 +64,11 @@ namespace Croogine {
 
 
 		CroogineDevice &croogineDevice;
-		VkBuffer vertexBuffer;
-		VkDeviceMemory vertexBufferMemory;
+		std::unique_ptr<CroogineBuffer> vertexBuffer;
 		uint32_t vertexCount;
 
 		bool hasIndexBuffer = false;
-		VkBuffer indexBuffer;
-		VkDeviceMemory indexBufferMemory;
+		std::unique_ptr<CroogineBuffer> indexBuffer;
 		uint32_t indexCount;
 	};
 }
