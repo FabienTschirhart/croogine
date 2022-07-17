@@ -18,7 +18,6 @@ namespace Croogine {
     struct GlobalUniformBufferObject {
         glm::mat4 projectionView{ 1.f };
         glm::vec3 lightDirection = glm::normalize(glm::vec3{1.f, -3.f, -1.f});
-
     };
 
     CroogineApp::CroogineApp() {
@@ -30,24 +29,13 @@ namespace Croogine {
 	void CroogineApp::run() {
 
         std::vector<std::unique_ptr<CroogineBuffer>> uboBuffers(CroogineSwapChain::MAX_FRAMES_IN_FLIGHT);
-        for (int i = 0; i < uboBuffers.size(); i++)
-        {
-            uboBuffers[i] = std::make_unique<CroogineBuffer>(
-                croogineDevice,
-                sizeof(GlobalUniformBufferObject),
-                1,
-                VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-                VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
-            uboBuffers[i]->map();
-        }
-
         CroogineRenderSystem renderSystem{ croogineDevice, croogineRenderer.getSwapChainRenderPass() };
         CroogineCamera camera{};
-
         auto cameraEntity = CroogineEntity::createEntity();
         KeyboardController cameraEntity_Controller{};
-
         auto currentTime = std::chrono::high_resolution_clock::now();
+
+        initUBO(uboBuffers);
 
         while (!croogineWindow.shouldClose()) //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
         {
@@ -56,18 +44,7 @@ namespace Croogine {
             auto newTime = std::chrono::high_resolution_clock::now();
             float frameDuration = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
             currentTime = newTime;    
-
-            frameDuration = glm::min(frameDuration, MAX_FRAME_DURATION);
-
-            cameraEntity_Controller.move(croogineWindow.getGLFWwindow(), frameDuration, cameraEntity);
-            camera.setViewYXZ(cameraEntity.transform.translation, cameraEntity.transform.rotation);
-                
-            float aspect = croogineRenderer.getAspectRatio();
-
-            if(ORTHOGRAPHIC_PROJECTION)
-                camera.setOrthographicProjection(-aspect, aspect, ORTHOGRAPHIC_TOP, ORTHOGRAPHIC_BOTTOM, ORTHOGRAPHIC_NEAR_PLANE, ORTHOGRAPHIC_FAR_PLANE);
-            else
-                camera.setPerspectiveProjection(FOV, aspect, PERSPECTIVE_NEAR_PLANE, PERSPECTIVE_FAR_PLANE);
+            frameDuration = glm::min(frameDuration, MAX_FRAME_DURATION);         
             
             if (auto commandBuffer = croogineRenderer.beginFrame()) {
 
@@ -78,6 +55,7 @@ namespace Croogine {
                     camera
                 };
 
+                updateCamera(frame, cameraEntity_Controller, cameraEntity);
                 update(frame, uboBuffers); 
                 render(frame, renderSystem);
             }
@@ -98,6 +76,33 @@ namespace Croogine {
         element.transform.rotation = { 1.5708f, 0.f, 0.f };
 
         entities.push_back(std::move(element));
+    }
+
+    void CroogineApp::initUBO(std::vector<std::unique_ptr<CroogineBuffer>>& UniformBufferObject)
+    {
+        for (int i = 0; i < UniformBufferObject.size(); i++)
+        {
+            UniformBufferObject[i] = std::make_unique<CroogineBuffer>(
+                croogineDevice,
+                sizeof(GlobalUniformBufferObject),
+                1,
+                VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+                VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
+            UniformBufferObject[i]->map();
+        }
+    }
+
+    void CroogineApp::updateCamera(Frame& frame, KeyboardController& cameraController, CroogineEntity& camera)
+    {
+        cameraController.move(croogineWindow.getGLFWwindow(), frame.frameDuration, camera);
+        frame.camera.setViewYXZ(camera.transform.translation, camera.transform.rotation);
+
+        float aspect = croogineRenderer.getAspectRatio();
+
+        if (ORTHOGRAPHIC_PROJECTION)
+            frame.camera.setOrthographicProjection(-aspect, aspect, ORTHOGRAPHIC_TOP, ORTHOGRAPHIC_BOTTOM, ORTHOGRAPHIC_NEAR_PLANE, ORTHOGRAPHIC_FAR_PLANE);
+        else
+            frame.camera.setPerspectiveProjection(FOV, aspect, PERSPECTIVE_NEAR_PLANE, PERSPECTIVE_FAR_PLANE);
     }
 
     void CroogineApp::update(Frame& frame, std::vector<std::unique_ptr<CroogineBuffer>>& UniformBufferObject)

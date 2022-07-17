@@ -5,6 +5,7 @@
 #include "Croogine_Device.h"
 #include "Croogine_Entity.h"
 #include "Croogine_Renderer.h"
+#include "Croogine_KB_Controller.h"
 #include "Croogine_RenderSystem.h"
 #include "Croogine_Frame.h"
 
@@ -27,6 +28,8 @@ namespace Croogine {
     private:
 
         void loadEntities();
+        void initUBO(std::vector<std::unique_ptr<CroogineBuffer>>& UniformBufferObject);
+        void updateCamera(Frame& frame, KeyboardController& cameraController, CroogineEntity& camera);
         void update(Frame& frame, std::vector<std::unique_ptr<CroogineBuffer>>& UniformBufferObject);
         void render(Frame& frame, CroogineRenderSystem& renderSystem);
 
