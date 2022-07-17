@@ -1,5 +1,7 @@
 #pragma once
 
+//Comes from Brendan Galea
+
 #include "Croogine_Device.h"
 
 namespace Croogine {
