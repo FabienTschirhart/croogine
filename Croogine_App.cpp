@@ -78,8 +78,7 @@ namespace Croogine {
                     camera
                 };
 
-                update(frame, uboBuffers);            
-
+                update(frame, uboBuffers); 
                 render(frame, renderSystem);
             }
         }
