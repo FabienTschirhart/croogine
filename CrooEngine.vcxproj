@@ -156,6 +156,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Croogine_Buffer.cpp" />
+    <ClCompile Include="Croogine_DescriptorPool.cpp" />
+    <ClCompile Include="Croogine_DescriptorSetLayout.cpp" />
+    <ClCompile Include="Croogine_DescriptorWriter.cpp" />
     <ClCompile Include="Croogine_Entity.cpp" />
     <ClCompile Include="Croogine_KB_Controller.cpp" />
     <ClCompile Include="Croogine_App.cpp" />
@@ -174,6 +177,9 @@
     <ClInclude Include="Croogine_App.h" />
     <ClInclude Include="Croogine_Buffer.h" />
     <ClInclude Include="Croogine_Camera.h" />
+    <ClInclude Include="Croogine_DescriptorPool.h" />
+    <ClInclude Include="Croogine_DescriptorSetLayout.h" />
+    <ClInclude Include="Croogine_DescriptorWriter.h" />
     <ClInclude Include="Croogine_Device.h" />
     <ClInclude Include="Croogine_Entity.h" />
     <ClInclude Include="Croogine_Frame.h" />

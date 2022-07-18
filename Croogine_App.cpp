@@ -37,8 +37,8 @@ namespace Croogine {
 
         initUBO(uboBuffers);
 
-        while (!croogineWindow.shouldClose()) //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
-        {
+        while (!croogineWindow.shouldClose()) { //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
+        
             glfwPollEvents(); //check all events (click, resize, close, move, etc.) and set flags accordingly
 
             auto newTime = std::chrono::high_resolution_clock::now();
