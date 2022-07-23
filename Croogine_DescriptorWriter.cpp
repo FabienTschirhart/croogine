@@ -1,5 +1,7 @@
 #include "Croogine_DescriptorWriter.h"
 
+//comes from Brendan Galea
+
 namespace Croogine {
 
     CroogineDescriptorWriter::CroogineDescriptorWriter(CroogineDescriptorSetLayout& setLayout, CroogineDescriptorPool& pool)

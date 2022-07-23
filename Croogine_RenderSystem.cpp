@@ -13,12 +13,12 @@
 namespace Croogine {
 
     struct SimplePushConstantData {
-        glm::mat4 transform{ 1.f };
+        glm::mat4 modelMatrix{ 1.f };
         glm::mat4 normalMatrix{ 1.f };
     };
 
-    CroogineRenderSystem::CroogineRenderSystem(CroogineDevice& device, VkRenderPass renderPass) : croogineDevice{ device } {
-        createPipelineLayout();
+    CroogineRenderSystem::CroogineRenderSystem(CroogineDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout) : croogineDevice{ device } {
+        createPipelineLayout(globalSetLayout);
         createPipeline(renderPass);
     }
 
@@ -27,18 +27,19 @@ namespace Croogine {
     }
 
    
-    void CroogineRenderSystem::createPipelineLayout() {
+    void CroogineRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
 
         VkPushConstantRange pushConstantRange{};
         pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
         pushConstantRange.offset = 0;
         pushConstantRange.size = sizeof(SimplePushConstantData);
 
+        std::vector<VkDescriptorSetLayout> descriptorSetLayouts{ globalSetLayout };
 
         VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
         pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-        pipelineLayoutInfo.setLayoutCount = 0;
-        pipelineLayoutInfo.pSetLayouts = nullptr;
+        pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(descriptorSetLayouts.size());
+        pipelineLayoutInfo.pSetLayouts = descriptorSetLayouts.data();
         pipelineLayoutInfo.pushConstantRangeCount = 1;
         pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
         if (vkCreatePipelineLayout(croogineDevice.getDevice(), &pipelineLayoutInfo, nullptr, &pipelineLayout) !=
@@ -67,13 +68,20 @@ namespace Croogine {
     void CroogineRenderSystem::renderEntities(Frame &frame, std::vector<CroogineEntity>& entities) {
         crooginePipeline->bind(frame.commandBuffer);
 
-        auto projectionView = frame.camera.getProjection() * frame.camera.getView();
+        vkCmdBindDescriptorSets(
+            frame.commandBuffer,
+            VK_PIPELINE_BIND_POINT_GRAPHICS,
+            pipelineLayout,
+            0, 
+            1,
+            &frame.globalDescriptorSet,
+            0, 
+            nullptr);
 
         for (auto& entity : entities) {
 
             SimplePushConstantData push{};
-            auto normalMatrix = entity.transform.mat4();
-            push.transform = projectionView * normalMatrix;
+            push.modelMatrix = entity.transform.mat4();
             push.normalMatrix = entity.transform.normalMatrix();
 
             vkCmdPushConstants(

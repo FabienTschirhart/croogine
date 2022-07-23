@@ -21,6 +21,11 @@ namespace Croogine {
     };
 
     CroogineApp::CroogineApp() {
+        globalPool = CroogineDescriptorPool::Builder(croogineDevice)
+            .setMaxSets(CroogineSwapChain::MAX_FRAMES_IN_FLIGHT)
+            .addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, CroogineSwapChain::MAX_FRAMES_IN_FLIGHT)
+            .build();
+
         loadEntities();
     }
 
@@ -36,6 +41,18 @@ namespace Croogine {
         auto currentTime = std::chrono::high_resolution_clock::now();
 
         initUBO(uboBuffers);
+
+        auto globalSetLayout = CroogineDescriptorSetLayout::Builder(croogineDevice)
+            .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT)
+            .build();
+
+        std::vector<VkDescriptorSet> globalDescriptorSets(CroogineSwapChain::MAX_FRAMES_IN_FLIGHT);
+        for (int i = 0; i < globalDescriptorSets.size(); i++) {
+            auto bufferInfo = uboBuffers[i]->descriptorInfo();
+            CroogineDescriptorWriter(*globalSetLayout, *globalPool)
+                .writeBuffer(0, &bufferInfo)
+                .build(globalDescriptorSets[i]);
+        }
 
         while (!croogineWindow.shouldClose()) { //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
         

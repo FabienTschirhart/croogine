@@ -1,6 +1,7 @@
 #include "Croogine_DescriptorSetLayout.h"
 
-// std
+//comes from Brendan Galea
+
 
 namespace Croogine {
 

@@ -14,7 +14,7 @@ namespace Croogine {
     class CroogineRenderSystem {
     public:
 
-        CroogineRenderSystem(CroogineDevice& device, VkRenderPass renderPass);
+        CroogineRenderSystem(CroogineDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
         ~CroogineRenderSystem();
 
         CroogineRenderSystem(const CroogineRenderSystem&) = delete;
@@ -27,7 +27,7 @@ namespace Croogine {
 
     private:
 
-        void createPipelineLayout();
+        void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
         void createPipeline(VkRenderPass renderPass);
 
         CroogineDevice& croogineDevice;

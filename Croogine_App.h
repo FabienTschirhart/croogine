@@ -8,6 +8,8 @@
 #include "Croogine_KB_Controller.h"
 #include "Croogine_RenderSystem.h"
 #include "Croogine_Frame.h"
+#include "Croogine_DescriptorPool.h"
+#include "Croogine_DescriptorWriter.h"
 
 #include <memory>
 #include <vector>
@@ -37,6 +39,7 @@ namespace Croogine {
         CroogineDevice croogineDevice{ croogineWindow };
         CroogineRenderer croogineRenderer{ croogineWindow, croogineDevice };
 
+        std::unique_ptr<CroogineDescriptorPool> globalPool{}; //Declaration order matters
         std::vector<CroogineEntity> entities;
     };
 }

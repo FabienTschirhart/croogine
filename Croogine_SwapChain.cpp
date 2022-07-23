@@ -1,5 +1,7 @@
 #include "Croogine_SwapChain.h"
 
+//comes from Brendan Galea ?
+
 // std
 #include <array>
 #include <cstdlib>

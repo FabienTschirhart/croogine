@@ -12,6 +12,7 @@ namespace Croogine {
 		float frameDuration;
 		VkCommandBuffer commandBuffer;
 		CroogineCamera& camera;
+		VkDescriptorSet globalDescriptorSet;
 	};
 
 }
