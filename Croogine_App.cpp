@@ -34,8 +34,7 @@ namespace Croogine {
 	void CroogineApp::run() {
 
         std::vector<std::unique_ptr<CroogineBuffer>> uboBuffers(CroogineSwapChain::MAX_FRAMES_IN_FLIGHT);
-        CroogineRenderSystem renderSystem{ croogineDevice, croogineRenderer.getSwapChainRenderPass() };
-        CroogineCamera camera{};
+
         auto cameraEntity = CroogineEntity::createEntity();
         KeyboardController cameraEntity_Controller{};
         auto currentTime = std::chrono::high_resolution_clock::now();
@@ -54,6 +53,12 @@ namespace Croogine {
                 .build(globalDescriptorSets[i]);
         }
 
+        CroogineRenderSystem renderSystem{ 
+            croogineDevice, 
+            croogineRenderer.getSwapChainRenderPass(), 
+            globalSetLayout->getDescriptorSetLayout()};
+        CroogineCamera camera{};
+
         while (!croogineWindow.shouldClose()) { //Check the close flag of the application window; if there is a click on the close button, it leaves the while()
         
             glfwPollEvents(); //check all events (click, resize, close, move, etc.) and set flags accordingly
@@ -69,7 +74,8 @@ namespace Croogine {
                     croogineRenderer.getFrameIndex(),
                     frameDuration,
                     commandBuffer,
-                    camera
+                    camera,
+                    globalDescriptorSets[croogineRenderer.getFrameIndex()]
                 };
 
                 updateCamera(frame, cameraEntity_Controller, cameraEntity);
@@ -127,11 +133,11 @@ namespace Croogine {
         GlobalUniformBufferObject ubo{};
 
         ubo.projectionView = frame.camera.getProjection() * frame.camera.getView();
+        ubo.lightDirection = glm::normalize(glm::vec3{ 1.f * frame.frameDuration, -3.f, -1.f });
         UniformBufferObject[frame.frameIndex]->writeToBuffer(&ubo);
         UniformBufferObject[frame.frameIndex]->flush();
 
         //entities[0].transform.rotation += glm::vec3{ 0.f, 0.00005f , 0.f };
-
     }
 
     void CroogineApp::render(Frame& frame, CroogineRenderSystem& renderSystem)

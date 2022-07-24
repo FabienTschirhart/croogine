@@ -17,7 +17,11 @@ namespace Croogine {
         glm::mat4 normalMatrix{ 1.f };
     };
 
-    CroogineRenderSystem::CroogineRenderSystem(CroogineDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout) : croogineDevice{ device } {
+    CroogineRenderSystem::CroogineRenderSystem(
+        CroogineDevice& device, 
+        VkRenderPass renderPass, 
+        VkDescriptorSetLayout globalSetLayout
+        ) : croogineDevice{ device } {
         createPipelineLayout(globalSetLayout);
         createPipeline(renderPass);
     }
