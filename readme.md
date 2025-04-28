@@ -7,7 +7,7 @@ It aims at integrating various and multiple 3D render technics into one engine :
 
 ## Croogine UML Class Diagram
 
-![UML Diagram](images\croogine_class_uml.png)
+![UML Diagram](images/croogine_class_uml.png)
 
 ## The technologies
 

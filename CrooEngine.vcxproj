@@ -142,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Devs\Projects\Libraries\tinyobjloader-master;D:\Devs\Projects\Libraries\glm;D:\Devs\Projects\Libraries\glfw-3.3.6.bin.WIN64\include;D:\Devs\Projects\VulkanSDK\Include;D:\Devs\Projects\Libraries\stb-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Devs\Projects\Libraries\tinygltf;D:\Devs\Projects\Libraries\tinyobjloader;D:\Devs\Projects\Libraries\glm;D:\Devs\Projects\Libraries\glfw-3.3.6.bin.WIN64\include;D:\Devs\Projects\VulkanSDK\Include;D:\Devs\Projects\Libraries\stb-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
